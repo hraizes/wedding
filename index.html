@@ -328,6 +328,97 @@
     .bridal-event .event-time { color: var(--mauve); }
     .bridal-event .event-time::before { color: rgba(168,112,128,0.4); }
 
+    /* ── Countdown ── */
+    .countdown {
+      margin-top: 1rem;
+      font-size: 0.78rem;
+      color: var(--muted);
+      letter-spacing: 0.05em;
+    }
+    .countdown-value {
+      color: var(--mauve);
+      font-weight: 700;
+    }
+    .countdown-prompt { color: var(--sage); }
+
+    /* ── Floating airplane ── */
+    .float-plane {
+      position: fixed;
+      right: 1.2rem;
+      top: 40%;
+      font-size: 1.6rem;
+      cursor: default;
+      user-select: none;
+      animation: bob 4s ease-in-out infinite;
+      transition: transform 0.2s;
+      z-index: 100;
+      line-height: 1;
+    }
+    .float-plane:hover { animation: zoom 0.4s ease-in-out infinite alternate; }
+    .float-plane .contrail {
+      position: absolute;
+      right: 100%;
+      top: 50%;
+      transform: translateY(-50%);
+      display: flex;
+      gap: 4px;
+      padding-right: 4px;
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+    .float-plane:hover .contrail { opacity: 1; }
+    .contrail-dot {
+      width: 4px;
+      height: 4px;
+      border-radius: 50%;
+      background: var(--dusty-blue);
+      opacity: 0.6;
+    }
+
+    @keyframes bob {
+      0%, 100% { transform: translateY(0) rotate(-5deg); }
+      50%       { transform: translateY(-12px) rotate(-5deg); }
+    }
+    @keyframes zoom {
+      0%   { transform: translateY(0) rotate(-5deg) scale(1); }
+      100% { transform: translateY(-4px) rotate(-10deg) scale(1.2); }
+    }
+
+    /* ── Konami planes ── */
+    .konami-plane {
+      position: fixed;
+      font-size: 2rem;
+      animation: fly-across 2s linear forwards;
+      z-index: 999;
+      pointer-events: none;
+    }
+    @keyframes fly-across {
+      from { left: -3rem; }
+      to   { left: 110vw; }
+    }
+    .konami-msg {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 1rem;
+      color: var(--mauve);
+      background: var(--bg);
+      border: 1px solid var(--mauve);
+      padding: 1rem 1.5rem;
+      z-index: 999;
+      text-align: center;
+      pointer-events: none;
+      animation: fade-msg 3s ease forwards;
+    }
+    @keyframes fade-msg {
+      0%   { opacity: 0; transform: translate(-50%, -50%) scale(0.9); }
+      15%  { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+      75%  { opacity: 1; }
+      100% { opacity: 0; }
+    }
+
     /* ── Footer ── */
     .footer {
       margin-top: 4rem;
@@ -357,6 +448,10 @@
       <a href="https://tannenbaumevents.com/" target="_blank">Tannenbaum</a>
       &nbsp;·&nbsp;
       <a href="https://parks.nv.gov/parks/lake-tahoe-nevada-state-park" target="_blank">Sand Harbor</a>
+    </div>
+    <div class="countdown">
+      <span class="countdown-prompt">&gt; </span>countdown to i do:
+      <span class="countdown-value" id="countdown">calculating...</span>
     </div>
     <pre class="mountains">
       /\         /\               /\
@@ -638,6 +733,16 @@ __/        \   \      v      \/        \___
     </div>
   </div>
 
+  <!-- Floating airplane -->
+  <div class="float-plane" title="✈">
+    <div class="contrail">
+      <div class="contrail-dot"></div>
+      <div class="contrail-dot" style="opacity:0.4;"></div>
+      <div class="contrail-dot" style="opacity:0.2;"></div>
+    </div>
+    ✈
+  </div>
+
   <div class="footer">✈ &nbsp;·&nbsp; see you in tahoe &nbsp;·&nbsp; ✈</div>
 
   <script>
@@ -659,6 +764,60 @@ __/        \   \      v      \/        \___
         document.getElementById('pw-field').value = '';
         document.getElementById('pw-field').focus();
         setTimeout(() => { err.style.display = 'none'; }, 3000);
+      }
+    }
+
+    // Countdown timer
+    function updateCountdown() {
+      const wedding = new Date('2026-06-05T17:00:00-07:00');
+      const now = new Date();
+      const diff = wedding - now;
+      if (diff <= 0) {
+        document.getElementById('countdown').textContent = '🎉 today!!';
+        return;
+      }
+      const d = Math.floor(diff / 86400000);
+      const h = Math.floor((diff % 86400000) / 3600000);
+      const m = Math.floor((diff % 3600000) / 60000);
+      const s = Math.floor((diff % 60000) / 1000);
+      document.getElementById('countdown').textContent =
+        `${d}d · ${String(h).padStart(2,'0')}h · ${String(m).padStart(2,'0')}m · ${String(s).padStart(2,'0')}s`;
+    }
+    updateCountdown();
+    setInterval(updateCountdown, 1000);
+
+    // Konami code easter egg
+    const KONAMI = ['ArrowUp','ArrowUp','ArrowDown','ArrowDown','ArrowLeft','ArrowRight','ArrowLeft','ArrowRight','KeyB','KeyA'];
+    let konamiIdx = 0;
+    document.addEventListener('keydown', e => {
+      if (e.code === KONAMI[konamiIdx]) {
+        konamiIdx++;
+        if (konamiIdx === KONAMI.length) {
+          konamiIdx = 0;
+          launchPlanes();
+        }
+      } else {
+        konamiIdx = e.code === KONAMI[0] ? 1 : 0;
+      }
+    });
+
+    function launchPlanes() {
+      const msg = document.createElement('div');
+      msg.className = 'konami-msg';
+      msg.innerHTML = '✈ ✈ ✈<br/>see you in tahoe!<br/>✈ ✈ ✈';
+      document.body.appendChild(msg);
+      setTimeout(() => msg.remove(), 3000);
+
+      for (let i = 0; i < 8; i++) {
+        setTimeout(() => {
+          const plane = document.createElement('div');
+          plane.className = 'konami-plane';
+          plane.textContent = '✈';
+          plane.style.top = Math.random() * 80 + 10 + 'vh';
+          plane.style.animationDuration = (1.2 + Math.random() * 1.2) + 's';
+          document.body.appendChild(plane);
+          setTimeout(() => plane.remove(), 2500);
+        }, i * 200);
       }
     }
   </script>
