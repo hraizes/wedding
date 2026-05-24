@@ -3,20 +3,21 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Wedding // Tahoe 2026</title>
+  <title>Haley &amp; Thomas // June 5, 2026</title>
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,300;0,400;0,600;0,700;1,300&display=swap" rel="stylesheet">
   <style>
     :root {
-      --bg:      #08141e;
-      --surface: #0e2030;
-      --border:  #1c3a54;
-      --pine:    #3a9e5f;
-      --lake:    #5ba8d4;
-      --snow:    #ddeeff;
-      --warm:    #e0a84a;
-      --muted:   #4a6a84;
-      --bridal:  #c47fb3;
-      --red:     #e05a5a;
+      --bg:          #faf7f4;
+      --surface:     #f2ebe4;
+      --border:      #ddd0c4;
+      --sage:        #7a9e7e;
+      --blue:        #6b8fa8;
+      --mauve:       #a87080;
+      --light-mauve: #c9a0b0;
+      --dusty-blue:  #8fafc0;
+      --text:        #3a2a28;
+      --muted:       #9a8a82;
+      --red:         #b05050;
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -24,39 +25,28 @@
     body {
       font-family: 'JetBrains Mono', monospace;
       background: var(--bg);
-      color: var(--snow);
+      color: var(--text);
       min-height: 100vh;
-      max-width: 780px;
+      max-width: 800px;
       margin: 0 auto;
       padding: 2.5rem 1.5rem 5rem;
     }
 
     /* ── Header ── */
-    .header {
-      text-align: center;
-      margin-bottom: 3rem;
-    }
+    .header { text-align: center; margin-bottom: 3rem; }
 
     .planes {
       font-size: 1.1rem;
       letter-spacing: 0.6rem;
-      color: var(--muted);
+      color: var(--dusty-blue);
       margin-bottom: 1.2rem;
-      animation: drift 8s linear infinite;
-    }
-
-    @keyframes drift {
-      0%   { letter-spacing: 0.6rem; }
-      50%  { letter-spacing: 1.0rem; }
-      100% { letter-spacing: 0.6rem; }
     }
 
     .title {
       font-size: 2rem;
       font-weight: 700;
-      color: var(--warm);
+      color: var(--mauve);
       letter-spacing: 0.08em;
-      line-height: 1.2;
     }
 
     .subtitle {
@@ -66,21 +56,19 @@
       letter-spacing: 0.12em;
     }
 
-    .meta {
+    .venue-links {
       margin-top: 0.6rem;
-      color: var(--lake);
-      font-size: 0.8rem;
-      font-style: italic;
+      font-size: 0.78rem;
     }
 
     .mountains {
       font-size: 0.58rem;
-      color: var(--pine);
+      color: var(--sage);
       line-height: 1.05;
       text-align: center;
       margin: 1.8rem auto 0;
       white-space: pre;
-      opacity: 0.75;
+      opacity: 0.55;
     }
 
     .divider {
@@ -89,88 +77,187 @@
       margin: 2rem 0;
     }
 
-    /* ── Section label ── */
+    /* ── Links ── */
+    a {
+      color: var(--blue);
+      text-decoration: none;
+      border-bottom: 1px solid var(--dusty-blue);
+      transition: color 0.15s, border-color 0.15s;
+    }
+    a:hover { color: var(--mauve); border-color: var(--mauve); }
+
+    /* ── Section labels ── */
     .section-label {
       font-size: 0.68rem;
       color: var(--muted);
       letter-spacing: 0.18em;
-      margin-bottom: 1.2rem;
+      margin-bottom: 1rem;
+    }
+    .section-label::before { content: '// '; color: var(--sage); }
+
+    /* ── Day headers ── */
+    .day-header {
+      font-size: 0.72rem;
+      font-weight: 700;
+      color: var(--blue);
+      letter-spacing: 0.14em;
+      margin: 2rem 0 0;
+      padding-bottom: 0.5rem;
+      border-bottom: 2px solid var(--border);
     }
 
-    .section-label::before { content: '// '; color: var(--pine); }
-
-    /* ── Schedule ── */
-    .schedule { margin-bottom: 3rem; }
-
+    /* ── Events ── */
     .event {
       display: grid;
       grid-template-columns: 6.5rem 1fr;
       gap: 1rem;
-      padding: 1rem 0;
+      padding: 0.85rem 0;
       border-bottom: 1px solid var(--border);
       align-items: start;
     }
 
-    .event:first-of-type { border-top: 1px solid var(--border); }
-
     .event-time {
-      color: var(--lake);
-      font-size: 0.82rem;
+      color: var(--blue);
+      font-size: 0.8rem;
       padding-top: 0.1rem;
       white-space: nowrap;
     }
-
-    .event-time::before { content: '> '; color: var(--pine); }
+    .event-time::before { content: '> '; color: var(--sage); }
 
     .event-name {
       font-weight: 600;
-      font-size: 0.92rem;
-      color: var(--snow);
+      font-size: 0.9rem;
+      color: var(--text);
     }
 
     .event-detail {
-      font-size: 0.76rem;
+      font-size: 0.74rem;
       color: var(--muted);
       margin-top: 0.25rem;
       font-weight: 300;
+      line-height: 1.6;
+    }
+
+    /* ── Attire ── */
+    .attire-box {
+      border: 1px solid var(--light-mauve);
+      border-radius: 3px;
+      padding: 1.3rem 1.4rem;
+      margin: 2rem 0;
+    }
+
+    .attire-label {
+      font-size: 0.68rem;
+      color: var(--light-mauve);
+      letter-spacing: 0.18em;
+      margin-bottom: 0.8rem;
+    }
+    .attire-label::before { content: '// '; opacity: 0.6; }
+
+    .attire-text {
+      font-size: 0.8rem;
+      color: var(--text);
+      line-height: 1.7;
+    }
+
+    .color-swatches {
+      display: flex;
+      gap: 0.8rem;
+      margin-top: 0.9rem;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .swatch {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      font-size: 0.68rem;
+      color: var(--muted);
+    }
+
+    .swatch-dot {
+      width: 13px;
+      height: 13px;
+      border-radius: 50%;
+      border: 1px solid rgba(0,0,0,0.1);
+      flex-shrink: 0;
+    }
+
+    /* ── Menu ── */
+    .menu-box {
+      border: 1px solid var(--border);
+      border-radius: 3px;
+      padding: 1.4rem;
+      margin: 2rem 0;
+    }
+
+    .menu-category {
+      font-size: 0.66rem;
+      color: var(--sage);
+      letter-spacing: 0.18em;
+      margin: 1.2rem 0 0.5rem;
+    }
+    .menu-category:first-of-type { margin-top: 0; }
+
+    .menu-item {
+      padding: 0.35rem 0;
+      border-bottom: 1px solid var(--surface);
+    }
+
+    .menu-item-name {
+      font-size: 0.82rem;
+      color: var(--text);
+      font-weight: 600;
+    }
+
+    .menu-item-detail {
+      font-size: 0.72rem;
+      color: var(--muted);
+      font-weight: 300;
+      margin-top: 0.1rem;
+      line-height: 1.5;
+    }
+
+    .dietary-note {
+      font-size: 0.72rem;
+      color: var(--sage);
+      margin-top: 1rem;
+      padding-top: 0.9rem;
+      border-top: 1px solid var(--border);
+      line-height: 1.9;
     }
 
     /* ── Bridal Gate ── */
     .bridal-gate {
       margin-top: 3rem;
-      border: 1px solid var(--bridal);
+      border: 1px solid var(--mauve);
       border-radius: 3px;
       padding: 1.8rem 1.5rem;
     }
 
-    .bridal-label {
+    .bridal-gate-label {
       font-size: 0.68rem;
-      color: var(--bridal);
+      color: var(--mauve);
       letter-spacing: 0.18em;
       margin-bottom: 1.4rem;
     }
-
-    .bridal-label::before { content: '// '; opacity: 0.6; }
+    .bridal-gate-label::before { content: '// '; opacity: 0.5; }
 
     .gate-locked { text-align: center; }
 
     .unlock-btn {
-      display: inline-block;
       font-family: 'JetBrains Mono', monospace;
-      font-size: 0.82rem;
+      font-size: 0.8rem;
       background: transparent;
-      border: 1px solid var(--bridal);
-      color: var(--bridal);
+      border: 1px solid var(--mauve);
+      color: var(--mauve);
       padding: 0.65rem 1.4rem;
       cursor: pointer;
       letter-spacing: 0.1em;
       transition: background 0.15s, color 0.15s;
     }
-
-    .unlock-btn:hover {
-      background: var(--bridal);
-      color: var(--bg);
-    }
+    .unlock-btn:hover { background: var(--mauve); color: white; }
 
     .unlock-hint {
       font-size: 0.68rem;
@@ -183,27 +270,25 @@
       display: none;
       justify-content: center;
       gap: 0.4rem;
-      margin-top: 1.1rem;
+      margin-top: 1rem;
     }
 
     .pw-input {
       font-family: 'JetBrains Mono', monospace;
       background: var(--surface);
-      border: 1px solid var(--bridal);
-      color: var(--snow);
+      border: 1px solid var(--mauve);
+      color: var(--text);
       padding: 0.5rem 0.8rem;
       font-size: 0.82rem;
       outline: none;
       width: 200px;
     }
 
-    .pw-input:focus { border-color: var(--snow); }
-
     .pw-submit {
       font-family: 'JetBrains Mono', monospace;
-      background: var(--bridal);
+      background: var(--mauve);
       border: none;
-      color: var(--bg);
+      color: white;
       padding: 0.5rem 0.9rem;
       font-size: 0.9rem;
       cursor: pointer;
@@ -217,23 +302,31 @@
       display: none;
     }
 
-    /* ── Bridal Content (hidden until unlocked) ── */
     .bridal-content { display: none; }
     .bridal-content.unlocked { display: block; }
+
+    .bridal-day-header {
+      font-size: 0.72rem;
+      font-weight: 700;
+      color: var(--mauve);
+      letter-spacing: 0.14em;
+      margin: 1.8rem 0 0;
+      padding-bottom: 0.5rem;
+      border-bottom: 2px solid rgba(168,112,128,0.25);
+    }
+    .bridal-day-header:first-of-type { margin-top: 0; }
 
     .bridal-event {
       display: grid;
       grid-template-columns: 6.5rem 1fr;
       gap: 1rem;
-      padding: 1rem 0;
-      border-bottom: 1px solid rgba(196, 127, 179, 0.2);
+      padding: 0.85rem 0;
+      border-bottom: 1px solid rgba(168,112,128,0.15);
       align-items: start;
     }
 
-    .bridal-event:first-of-type { border-top: 1px solid rgba(196, 127, 179, 0.2); }
-
-    .bridal-event .event-time { color: var(--bridal); }
-    .bridal-event .event-time::before { content: '> '; color: rgba(196,127,179,0.5); }
+    .bridal-event .event-time { color: var(--mauve); }
+    .bridal-event .event-time::before { color: rgba(168,112,128,0.4); }
 
     /* ── Footer ── */
     .footer {
@@ -246,9 +339,9 @@
 
     /* ── Responsive ── */
     @media (max-width: 480px) {
-      .event, .bridal-event { grid-template-columns: 5.5rem 1fr; }
+      .event, .bridal-event { grid-template-columns: 5.2rem 1fr; gap: 0.7rem; }
       .title { font-size: 1.5rem; }
-      .mountains { font-size: 0.48rem; }
+      .mountains { font-size: 0.45rem; }
     }
   </style>
 </head>
@@ -256,9 +349,15 @@
 
   <header class="header">
     <div class="planes">✈ &nbsp; ✈ &nbsp; ✈</div>
-    <div class="title">HALEY &amp; [PARTNER]</div>
-    <div class="subtitle">// lake tahoe wedding schedule</div>
-    <div class="meta">[DATE] &nbsp;·&nbsp; [VENUE]</div>
+    <div class="title">HALEY &amp; THOMAS</div>
+    <div class="subtitle">// lake tahoe · june 5, 2026</div>
+    <div class="venue-links">
+      <a href="https://tannenbaumevents.com/" target="_blank">Tannenbaum</a>
+      &nbsp;·&nbsp;
+      <a href="https://parks.nv.gov/parks/lake-tahoe-nevada-state-park" target="_blank">Sand Harbor</a>
+      &nbsp;·&nbsp;
+      <a href="https://alibialeworks.com/incline-public-house/" target="_blank">Alibi Aleworks</a>
+    </div>
     <pre class="mountains">
            /\                 /\
           /  \      /\       /  \        /\
@@ -270,51 +369,182 @@ _______/        \/      \_/        \__/      \________
 
   <hr class="divider" />
 
-  <!-- Full Wedding Party Schedule -->
-  <section class="schedule">
-    <div class="section-label">WEDDING PARTY SCHEDULE</div>
+  <!-- Attire -->
+  <div class="attire-box">
+    <div class="attire-label">ATTIRE</div>
+    <div class="attire-text">
+      Semi-formal. Ties and jackets not required.<br />
+      All colors welcome — our palette if you'd like to coordinate:
+    </div>
+    <div class="color-swatches">
+      <span class="swatch"><span class="swatch-dot" style="background:#a87080;"></span>Mauve</span>
+      <span class="swatch"><span class="swatch-dot" style="background:#c9a0b0;"></span>Light Mauve</span>
+      <span class="swatch"><span class="swatch-dot" style="background:#7a9e7e;"></span>Sage Green</span>
+      <span class="swatch"><span class="swatch-dot" style="background:#6b8fa8;"></span>French Blue</span>
+      <span class="swatch"><span class="swatch-dot" style="background:#8fafc0;"></span>Dusty Blue</span>
+    </div>
+  </div>
 
-    <div class="event">
-      <div class="event-time">0:00 AM</div>
-      <div>
-        <div class="event-name">✈ &nbsp;Event placeholder</div>
-        <div class="event-detail">Location &amp; details go here</div>
+  <!-- All Guests Schedule -->
+  <div class="section-label">WEDDING WEEK SCHEDULE</div>
+
+  <div class="day-header">FRI · JUNE 5 · WEDDING DAY</div>
+
+  <div class="event">
+    <div class="event-time">5:00 PM</div>
+    <div>
+      <div class="event-name">Guests Arrive</div>
+      <div class="event-detail"><a href="https://tannenbaumevents.com/" target="_blank">Tannenbaum</a> · Lake Tahoe</div>
+    </div>
+  </div>
+
+  <div class="event">
+    <div class="event-time">5:30 PM</div>
+    <div>
+      <div class="event-name">💍 Ceremony</div>
+    </div>
+  </div>
+
+  <div class="event">
+    <div class="event-time">6:00 PM</div>
+    <div>
+      <div class="event-name">Cocktail Hour</div>
+      <div class="event-detail">Drinks &amp; mingling while Haley &amp; Thomas take photos</div>
+    </div>
+  </div>
+
+  <div class="event">
+    <div class="event-time">6:30 PM</div>
+    <div>
+      <div class="event-name">🥂 Dinner</div>
+    </div>
+  </div>
+
+  <div class="event">
+    <div class="event-time">7:30 PM</div>
+    <div>
+      <div class="event-name">Speeches</div>
+    </div>
+  </div>
+
+  <div class="event">
+    <div class="event-time">8:00 PM</div>
+    <div>
+      <div class="event-name">Dessert</div>
+    </div>
+  </div>
+
+  <div class="event">
+    <div class="event-time">8:30 PM</div>
+    <div>
+      <div class="event-name">Dancing 💃</div>
+    </div>
+  </div>
+
+  <div class="event">
+    <div class="event-time">11:00 PM</div>
+    <div>
+      <div class="event-name">Goodbyes</div>
+    </div>
+  </div>
+
+  <div class="day-header">SAT · JUNE 6 · BEACH DAY</div>
+
+  <div class="event">
+    <div class="event-time">9:00 AM</div>
+    <div>
+      <div class="event-name">Meet at Raley's Parking Lot</div>
+      <div class="event-detail">Carpool to Sand Harbor together</div>
+    </div>
+  </div>
+
+  <div class="event">
+    <div class="event-time">9:30 AM</div>
+    <div>
+      <div class="event-name">🏖 Sand Harbor</div>
+      <div class="event-detail">
+        <a href="https://parks.nv.gov/parks/lake-tahoe-nevada-state-park" target="_blank">Lake Tahoe Nevada State Park</a>
+        &nbsp;·&nbsp;
+        <a href="https://parks.nv.gov/sand-harbor-ramada-photos" target="_blank">venue photos</a>
       </div>
     </div>
+  </div>
 
-    <div class="event">
-      <div class="event-time">0:00 AM</div>
-      <div>
-        <div class="event-name">📍 Event placeholder</div>
-        <div class="event-detail">Location &amp; details go here</div>
-      </div>
+  <div class="event">
+    <div class="event-time">4:30 PM</div>
+    <div>
+      <div class="event-name">Pack up + Head out</div>
+    </div>
+  </div>
+
+  <div class="event">
+    <div class="event-time">5:30 PM</div>
+    <div>
+      <div class="event-name">Raizes Family Gathering</div>
+      <div class="event-detail">Garwood's</div>
+    </div>
+  </div>
+
+  <!-- Dinner Menu -->
+  <div class="menu-box">
+    <div class="section-label" style="margin-bottom:1rem;">DINNER MENU</div>
+
+    <div class="menu-category">SALAD</div>
+    <div class="menu-item">
+      <div class="menu-item-name">Summer Salad</div>
+      <div class="menu-item-detail">Little Gem Lettuce · Strawberries · Apples · Almonds · Feta · White Balsamic Vinaigrette</div>
+    </div>
+    <div class="menu-item">
+      <div class="menu-item-name">Focaccia Bread</div>
     </div>
 
-    <div class="event">
-      <div class="event-time">0:00 PM</div>
-      <div>
-        <div class="event-name">💍 Ceremony</div>
-        <div class="event-detail">Location &amp; details go here</div>
-      </div>
+    <div class="menu-category">MAINS · BUFFET</div>
+    <div class="menu-item">
+      <div class="menu-item-name">Roasted Chicken Thighs</div>
+      <div class="menu-item-detail">Lemongrass · Kaffir Lime · Red Curry · Coconut Milk · Cilantro</div>
+    </div>
+    <div class="menu-item">
+      <div class="menu-item-name">Flat Iron Steak</div>
+      <div class="menu-item-detail">Argentinian Chimichurri</div>
     </div>
 
-    <div class="event">
-      <div class="event-time">0:00 PM</div>
-      <div>
-        <div class="event-name">🥂 Reception</div>
-        <div class="event-detail">Location &amp; details go here</div>
-      </div>
+    <div class="menu-category">SIDES</div>
+    <div class="menu-item">
+      <div class="menu-item-name">Green Beans</div>
+      <div class="menu-item-detail">Garlic · Pickled Red Onion · Chili Flakes</div>
+    </div>
+    <div class="menu-item">
+      <div class="menu-item-name">Roasted Russian Fingerling Potatoes</div>
+      <div class="menu-item-detail">Garlic · Fresh Herbs · Lemon</div>
+    </div>
+    <div class="menu-item">
+      <div class="menu-item-name">Basmati Rice</div>
     </div>
 
-  </section>
+    <div class="menu-category">DESSERT</div>
+    <div class="menu-item">
+      <div class="menu-item-name">Wedding Cake</div>
+      <div class="menu-item-detail">Non-dairy option available</div>
+    </div>
+    <div class="menu-item">
+      <div class="menu-item-name">Cupcakes</div>
+      <div class="menu-item-detail">Gluten-free &amp; egg-free</div>
+    </div>
+
+    <div class="dietary-note">
+      ✓ &nbsp;Egg-free · nut-free · gluten-free · non-dairy options available<br />
+      ✓ &nbsp;Vegetarian: plated seared salmon (no dairy · no gluten · no nuts · no egg)<br />
+      ✓ &nbsp;Kids meal: chicken tenders · tater tots · fruit
+    </div>
+  </div>
 
   <!-- Bridal Party Gate -->
   <div class="bridal-gate">
-    <div class="bridal-label">BRIDAL PARTY ACCESS</div>
+    <div class="bridal-gate-label">BRIDAL PARTY DETAILS</div>
 
     <div class="gate-locked" id="gate">
-      <button class="unlock-btn" onclick="showInput()">[ UNLOCK BRIDAL SCHEDULE ]</button>
-      <div class="unlock-hint">password required &nbsp;·&nbsp; text Haley if you need it</div>
+      <button class="unlock-btn" onclick="showInput()">[ BRIDAL PARTY ACCESS ]</button>
+      <div class="unlock-hint">password required · text Haley if you need it</div>
       <div class="pw-row" id="pw-row">
         <input
           class="pw-input"
@@ -329,21 +559,79 @@ _______/        \/      \_/        \__/      \________
     </div>
 
     <div class="bridal-content" id="bridal-content">
-      <div class="section-label" style="color:var(--bridal);">BRIDAL PARTY DETAILS</div>
+
+      <div class="bridal-day-header">THU · JUNE 4 · PRE-WEDDING DAY</div>
+      <div style="font-size:0.7rem; color:var(--muted); margin: 0.5rem 0 1rem; font-style:italic;">Haley, Thomas, Caitlyn, Julie, Ashley, Deb, Steve</div>
 
       <div class="bridal-event">
-        <div class="event-time">0:00 AM</div>
+        <div class="event-time">11:30 AM</div>
         <div>
-          <div class="event-name">Bridal event placeholder</div>
-          <div class="event-detail">Details go here</div>
+          <div class="event-name">Trader Joe's + Costco Run</div>
+          <div class="event-detail">Flowers + BBQ supplies · the unofficial rehearsal of the rehearsal</div>
         </div>
       </div>
 
       <div class="bridal-event">
-        <div class="event-time">0:00 AM</div>
+        <div class="event-time">6:00 PM</div>
         <div>
-          <div class="event-name">Bridal event placeholder</div>
-          <div class="event-detail">Details go here</div>
+          <div class="event-name">Optional Dinner @ Alibi Aleworks</div>
+          <div class="event-detail">
+            Open to anyone in town — come say hi<br />
+            <a href="https://alibialeworks.com/incline-public-house/" target="_blank">alibialeworks.com</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="bridal-day-header">FRI · JUNE 5 · WEDDING MORNING</div>
+
+      <div class="bridal-event">
+        <div class="event-time">8:00 AM</div>
+        <div>
+          <div class="event-name">Pre-Wedding Run 🏃</div>
+        </div>
+      </div>
+
+      <div class="bridal-event">
+        <div class="event-time">9:30 AM</div>
+        <div>
+          <div class="event-name">Meet at Recreation Center Parking Lot</div>
+          <div class="event-detail">
+            Walk to ceremony site for rehearsal<br />
+            <a href="https://maps.app.goo.gl/45ocKybMdkubFChU8" target="_blank">→ Directions &amp; parking info</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="bridal-event">
+        <div class="event-time">10:00 AM</div>
+        <div>
+          <div class="event-name">Rehearsal</div>
+        </div>
+      </div>
+
+      <div class="bridal-event">
+        <div class="event-time">11:00 AM</div>
+        <div>
+          <div class="event-name">Split to get ready</div>
+          <div class="event-detail">
+            Girls → Haley's house<br />
+            Thomas + boys → family Airbnb
+          </div>
+        </div>
+      </div>
+
+      <div class="bridal-event">
+        <div class="event-time">2:30 PM</div>
+        <div>
+          <div class="event-name">First Look + Bridal Party Photos 📸</div>
+        </div>
+      </div>
+
+      <div class="bridal-event">
+        <div class="event-time">3:30 PM</div>
+        <div>
+          <div class="event-name">Tannenbaum Setup</div>
+          <div class="event-detail">Tables · decorations · DJ arrives</div>
         </div>
       </div>
 
@@ -353,7 +641,6 @@ _______/        \/      \_/        \__/      \________
   <div class="footer">✈ &nbsp;·&nbsp; see you in tahoe &nbsp;·&nbsp; ✈</div>
 
   <script>
-    // Change this to whatever password you want to give the bridal party
     const PASSWORD = 'tahoe2026';
 
     function showInput() {
