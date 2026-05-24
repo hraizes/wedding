@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Wedding // Tahoe 2026</title>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,300;0,400;0,600;0,700;1,300&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg:      #08141e;
+      --surface: #0e2030;
+      --border:  #1c3a54;
+      --pine:    #3a9e5f;
+      --lake:    #5ba8d4;
+      --snow:    #ddeeff;
+      --warm:    #e0a84a;
+      --muted:   #4a6a84;
+      --bridal:  #c47fb3;
+      --red:     #e05a5a;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'JetBrains Mono', monospace;
+      background: var(--bg);
+      color: var(--snow);
+      min-height: 100vh;
+      max-width: 780px;
+      margin: 0 auto;
+      padding: 2.5rem 1.5rem 5rem;
+    }
+
+    /* ── Header ── */
+    .header {
+      text-align: center;
+      margin-bottom: 3rem;
+    }
+
+    .planes {
+      font-size: 1.1rem;
+      letter-spacing: 0.6rem;
+      color: var(--muted);
+      margin-bottom: 1.2rem;
+      animation: drift 8s linear infinite;
+    }
+
+    @keyframes drift {
+      0%   { letter-spacing: 0.6rem; }
+      50%  { letter-spacing: 1.0rem; }
+      100% { letter-spacing: 0.6rem; }
+    }
+
+    .title {
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--warm);
+      letter-spacing: 0.08em;
+      line-height: 1.2;
+    }
+
+    .subtitle {
+      color: var(--muted);
+      font-size: 0.78rem;
+      margin-top: 0.4rem;
+      letter-spacing: 0.12em;
+    }
+
+    .meta {
+      margin-top: 0.6rem;
+      color: var(--lake);
+      font-size: 0.8rem;
+      font-style: italic;
+    }
+
+    .mountains {
+      font-size: 0.58rem;
+      color: var(--pine);
+      line-height: 1.05;
+      text-align: center;
+      margin: 1.8rem auto 0;
+      white-space: pre;
+      opacity: 0.75;
+    }
+
+    .divider {
+      border: none;
+      border-top: 1px solid var(--border);
+      margin: 2rem 0;
+    }
+
+    /* ── Section label ── */
+    .section-label {
+      font-size: 0.68rem;
+      color: var(--muted);
+      letter-spacing: 0.18em;
+      margin-bottom: 1.2rem;
+    }
+
+    .section-label::before { content: '// '; color: var(--pine); }
+
+    /* ── Schedule ── */
+    .schedule { margin-bottom: 3rem; }
+
+    .event {
+      display: grid;
+      grid-template-columns: 6.5rem 1fr;
+      gap: 1rem;
+      padding: 1rem 0;
+      border-bottom: 1px solid var(--border);
+      align-items: start;
+    }
+
+    .event:first-of-type { border-top: 1px solid var(--border); }
+
+    .event-time {
+      color: var(--lake);
+      font-size: 0.82rem;
+      padding-top: 0.1rem;
+      white-space: nowrap;
+    }
+
+    .event-time::before { content: '> '; color: var(--pine); }
+
+    .event-name {
+      font-weight: 600;
+      font-size: 0.92rem;
+      color: var(--snow);
+    }
+
+    .event-detail {
+      font-size: 0.76rem;
+      color: var(--muted);
+      margin-top: 0.25rem;
+      font-weight: 300;
+    }
+
+    /* ── Bridal Gate ── */
+    .bridal-gate {
+      margin-top: 3rem;
+      border: 1px solid var(--bridal);
+      border-radius: 3px;
+      padding: 1.8rem 1.5rem;
+    }
+
+    .bridal-label {
+      font-size: 0.68rem;
+      color: var(--bridal);
+      letter-spacing: 0.18em;
+      margin-bottom: 1.4rem;
+    }
+
+    .bridal-label::before { content: '// '; opacity: 0.6; }
+
+    .gate-locked { text-align: center; }
+
+    .unlock-btn {
+      display: inline-block;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.82rem;
+      background: transparent;
+      border: 1px solid var(--bridal);
+      color: var(--bridal);
+      padding: 0.65rem 1.4rem;
+      cursor: pointer;
+      letter-spacing: 0.1em;
+      transition: background 0.15s, color 0.15s;
+    }
+
+    .unlock-btn:hover {
+      background: var(--bridal);
+      color: var(--bg);
+    }
+
+    .unlock-hint {
+      font-size: 0.68rem;
+      color: var(--muted);
+      margin-top: 0.8rem;
+      font-style: italic;
+    }
+
+    .pw-row {
+      display: none;
+      justify-content: center;
+      gap: 0.4rem;
+      margin-top: 1.1rem;
+    }
+
+    .pw-input {
+      font-family: 'JetBrains Mono', monospace;
+      background: var(--surface);
+      border: 1px solid var(--bridal);
+      color: var(--snow);
+      padding: 0.5rem 0.8rem;
+      font-size: 0.82rem;
+      outline: none;
+      width: 200px;
+    }
+
+    .pw-input:focus { border-color: var(--snow); }
+
+    .pw-submit {
+      font-family: 'JetBrains Mono', monospace;
+      background: var(--bridal);
+      border: none;
+      color: var(--bg);
+      padding: 0.5rem 0.9rem;
+      font-size: 0.9rem;
+      cursor: pointer;
+      font-weight: 700;
+    }
+
+    .pw-error {
+      color: var(--red);
+      font-size: 0.72rem;
+      margin-top: 0.5rem;
+      display: none;
+    }
+
+    /* ── Bridal Content (hidden until unlocked) ── */
+    .bridal-content { display: none; }
+    .bridal-content.unlocked { display: block; }
+
+    .bridal-event {
+      display: grid;
+      grid-template-columns: 6.5rem 1fr;
+      gap: 1rem;
+      padding: 1rem 0;
+      border-bottom: 1px solid rgba(196, 127, 179, 0.2);
+      align-items: start;
+    }
+
+    .bridal-event:first-of-type { border-top: 1px solid rgba(196, 127, 179, 0.2); }
+
+    .bridal-event .event-time { color: var(--bridal); }
+    .bridal-event .event-time::before { content: '> '; color: rgba(196,127,179,0.5); }
+
+    /* ── Footer ── */
+    .footer {
+      margin-top: 4rem;
+      text-align: center;
+      color: var(--muted);
+      font-size: 0.68rem;
+      letter-spacing: 0.15em;
+    }
+
+    /* ── Responsive ── */
+    @media (max-width: 480px) {
+      .event, .bridal-event { grid-template-columns: 5.5rem 1fr; }
+      .title { font-size: 1.5rem; }
+      .mountains { font-size: 0.48rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="header">
+    <div class="planes">✈ &nbsp; ✈ &nbsp; ✈</div>
+    <div class="title">HALEY &amp; [PARTNER]</div>
+    <div class="subtitle">// lake tahoe wedding schedule</div>
+    <div class="meta">[DATE] &nbsp;·&nbsp; [VENUE]</div>
+    <pre class="mountains">
+           /\                 /\
+          /  \      /\       /  \        /\
+         /    \    /  \     /    \      /  \
+        /      \  /    \   /      \    /    \
+_______/        \/      \_/        \__/      \________
+    ≈ ≈ ≈ ≈ ≈ ≈ ≈  L A K E   T A H O E  ≈ ≈ ≈ ≈ ≈ ≈ ≈</pre>
+  </header>
+
+  <hr class="divider" />
+
+  <!-- Full Wedding Party Schedule -->
+  <section class="schedule">
+    <div class="section-label">WEDDING PARTY SCHEDULE</div>
+
+    <div class="event">
+      <div class="event-time">0:00 AM</div>
+      <div>
+        <div class="event-name">✈ &nbsp;Event placeholder</div>
+        <div class="event-detail">Location &amp; details go here</div>
+      </div>
+    </div>
+
+    <div class="event">
+      <div class="event-time">0:00 AM</div>
+      <div>
+        <div class="event-name">📍 Event placeholder</div>
+        <div class="event-detail">Location &amp; details go here</div>
+      </div>
+    </div>
+
+    <div class="event">
+      <div class="event-time">0:00 PM</div>
+      <div>
+        <div class="event-name">💍 Ceremony</div>
+        <div class="event-detail">Location &amp; details go here</div>
+      </div>
+    </div>
+
+    <div class="event">
+      <div class="event-time">0:00 PM</div>
+      <div>
+        <div class="event-name">🥂 Reception</div>
+        <div class="event-detail">Location &amp; details go here</div>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- Bridal Party Gate -->
+  <div class="bridal-gate">
+    <div class="bridal-label">BRIDAL PARTY ACCESS</div>
+
+    <div class="gate-locked" id="gate">
+      <button class="unlock-btn" onclick="showInput()">[ UNLOCK BRIDAL SCHEDULE ]</button>
+      <div class="unlock-hint">password required &nbsp;·&nbsp; text Haley if you need it</div>
+      <div class="pw-row" id="pw-row">
+        <input
+          class="pw-input"
+          type="password"
+          id="pw-field"
+          placeholder="enter password"
+          onkeydown="if(event.key==='Enter') checkPw()"
+        />
+        <button class="pw-submit" onclick="checkPw()">→</button>
+      </div>
+      <div class="pw-error" id="pw-error">// access denied. try again.</div>
+    </div>
+
+    <div class="bridal-content" id="bridal-content">
+      <div class="section-label" style="color:var(--bridal);">BRIDAL PARTY DETAILS</div>
+
+      <div class="bridal-event">
+        <div class="event-time">0:00 AM</div>
+        <div>
+          <div class="event-name">Bridal event placeholder</div>
+          <div class="event-detail">Details go here</div>
+        </div>
+      </div>
+
+      <div class="bridal-event">
+        <div class="event-time">0:00 AM</div>
+        <div>
+          <div class="event-name">Bridal event placeholder</div>
+          <div class="event-detail">Details go here</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="footer">✈ &nbsp;·&nbsp; see you in tahoe &nbsp;·&nbsp; ✈</div>
+
+  <script>
+    // Change this to whatever password you want to give the bridal party
+    const PASSWORD = 'tahoe2026';
+
+    function showInput() {
+      document.getElementById('pw-row').style.display = 'flex';
+      document.getElementById('pw-field').focus();
+    }
+
+    function checkPw() {
+      const val = document.getElementById('pw-field').value.trim().toLowerCase();
+      if (val === PASSWORD.toLowerCase()) {
+        document.getElementById('gate').style.display = 'none';
+        document.getElementById('bridal-content').classList.add('unlocked');
+      } else {
+        const err = document.getElementById('pw-error');
+        err.style.display = 'block';
+        document.getElementById('pw-field').value = '';
+        document.getElementById('pw-field').focus();
+        setTimeout(() => { err.style.display = 'none'; }, 3000);
+      }
+    }
+  </script>
+
+</body>
+</html>
