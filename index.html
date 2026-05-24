@@ -34,7 +34,7 @@
     }
 
     /* ── Header ── */
-    .header { text-align: center; margin-bottom: 3rem; position: relative; }
+    .header { text-align: center; margin-bottom: 3rem; }
 
     .planes {
       font-size: 1.1rem;
@@ -331,12 +331,11 @@
 
     /* ── Language toggle ── */
     .lang-toggle {
-      position: absolute;
-      top: 0;
-      right: 0;
       display: flex;
       align-items: center;
+      justify-content: center;
       gap: 0.3rem;
+      margin-top: 1rem;
     }
     .lang-btn {
       font-family: 'JetBrains Mono', monospace;
@@ -581,13 +580,9 @@
 <body>
 
   <header class="header">
-    <div class="lang-toggle">
-      <button class="lang-btn active" data-lang="en" onclick="setLang('en')">EN</button>
-      <button class="lang-btn" data-lang="fr" onclick="setLang('fr')">FR</button>
-    </div>
     <div class="planes">✈ &nbsp; ✈ &nbsp; ✈</div>
     <div class="title">HALEY &amp; THOMAS</div>
-    <div class="subtitle">// lake tahoe · june 5–6, 2026</div>
+    <div class="subtitle" data-en="// lake tahoe · june 5–6, 2026" data-fr="// lac tahoe · 5–6 juin 2026">// lake tahoe · june 5–6, 2026</div>
     <div class="venue-links">
       <a href="https://alibialeworks.com/incline-public-house/" target="_blank">Alibi Aleworks</a>
       &nbsp;·&nbsp;
@@ -606,6 +601,10 @@
    /      \/  \      \ /    \  /      \
 __/        \   \      v      \/        \___
 ~ ~ ~ ~ ~ ~ L A K E  T A H O E ~ ~ ~ ~ ~ ~</pre>
+    <div class="lang-toggle">
+      <button class="lang-btn active" data-lang="en" onclick="setLang('en')">EN</button>
+      <button class="lang-btn" data-lang="fr" onclick="setLang('fr')">FR</button>
+    </div>
   </header>
 
   <hr class="divider" />
