@@ -346,21 +346,22 @@
     /* ── Weather clouds ── */
     .weather-row {
       display: flex;
-      gap: 1rem;
       justify-content: center;
       margin: 1.8rem 0 0;
-      flex-wrap: wrap;
     }
 
     .weather-cloud {
+      display: none;
       background: var(--surface);
       border: 1px solid var(--border);
       border-radius: 12px;
-      padding: 1rem 1.2rem 0.9rem;
-      min-width: 120px;
+      padding: 1rem 2rem 0.9rem;
       text-align: center;
       box-shadow: 0 2px 8px rgba(46,32,24,0.07);
+      animation: panel-fade 0.2s ease;
     }
+
+    .weather-cloud.active { display: block; }
 
     .w-day {
       font-size: 0.62rem;
@@ -598,7 +599,7 @@ __/        \   \      v      \/        \___
       <div class="w-temps"><span class="w-high">--</span> / <span class="w-low">--</span></div>
       <div class="w-precip"></div>
     </div>
-    <div class="weather-cloud" id="weather-fri">
+    <div class="weather-cloud active" id="weather-fri">
       <div class="w-day">FRI · JUN 5</div>
       <div class="w-icon">⟳</div>
       <div class="w-condition">loading</div>
@@ -1010,14 +1011,13 @@ __/        \   \      v      \/        \___
     const DAYS = ['thu', 'fri', 'sat'];
     let currentDay = 1; // start on Friday
 
-    function switchDay(idx, animate = true) {
+    const WEATHER_IDS = ['weather-thu', 'weather-fri', 'weather-sat'];
+
+    function switchDay(idx) {
       currentDay = idx;
-      document.querySelectorAll('.day-tab').forEach((t, i) => {
-        t.classList.toggle('active', i === idx);
-      });
-      document.querySelectorAll('.day-panel').forEach((p, i) => {
-        p.classList.toggle('active', i === idx);
-      });
+      document.querySelectorAll('.day-tab').forEach((t, i)   => t.classList.toggle('active', i === idx));
+      document.querySelectorAll('.day-panel').forEach((p, i)  => p.classList.toggle('active', i === idx));
+      WEATHER_IDS.forEach((id, i) => document.getElementById(id).classList.toggle('active', i === idx));
     }
 
     document.querySelectorAll('.day-tab').forEach((tab, i) => {
