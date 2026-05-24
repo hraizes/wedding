@@ -342,6 +342,85 @@
     .countdown-prompt { color: var(--sage); }
 
 
+    /* ── Weather clouds ── */
+    .weather-row {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      margin: 1.8rem 0 0;
+      flex-wrap: wrap;
+    }
+
+    .weather-cloud {
+      background: rgba(255, 250, 244, 0.82);
+      border: 1px solid rgba(212, 196, 168, 0.7);
+      border-radius: 18px 22px 20px 18px / 20px 18px 22px 20px;
+      padding: 0.9rem 1.1rem 0.8rem;
+      min-width: 110px;
+      text-align: center;
+      box-shadow: 0 4px 14px rgba(46,32,24,0.08), 0 1px 3px rgba(46,32,24,0.05);
+      position: relative;
+    }
+
+    .weather-cloud::before {
+      content: '';
+      position: absolute;
+      width: 44px;
+      height: 44px;
+      background: rgba(255,250,244,0.82);
+      border: 1px solid rgba(212,196,168,0.6);
+      border-radius: 50%;
+      top: -18px;
+      left: 16px;
+      box-shadow: 0 -2px 6px rgba(46,32,24,0.05);
+    }
+
+    .weather-cloud::after {
+      content: '';
+      position: absolute;
+      width: 30px;
+      height: 30px;
+      background: rgba(255,250,244,0.82);
+      border: 1px solid rgba(212,196,168,0.6);
+      border-radius: 50%;
+      top: -12px;
+      right: 18px;
+      box-shadow: 0 -2px 4px rgba(46,32,24,0.04);
+    }
+
+    .w-day {
+      font-size: 0.62rem;
+      color: var(--muted);
+      letter-spacing: 0.14em;
+      margin-bottom: 0.4rem;
+    }
+
+    .w-icon { font-size: 1.6rem; line-height: 1.2; }
+
+    .w-condition {
+      font-size: 0.62rem;
+      color: var(--muted);
+      margin-top: 0.2rem;
+      font-style: italic;
+    }
+
+    .w-temps {
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: var(--text);
+      margin-top: 0.3rem;
+    }
+
+    .w-high { color: var(--mauve); }
+    .w-low  { color: var(--blue); }
+
+    .w-precip {
+      font-size: 0.6rem;
+      color: var(--blue);
+      margin-top: 0.2rem;
+      min-height: 0.8rem;
+    }
+
     /* ── Just Married banner plane ── */
     .just-married-plane {
       position: fixed;
@@ -449,6 +528,30 @@
       &nbsp;·&nbsp;
       <a href="https://parks.nv.gov/parks/lake-tahoe-nevada-state-park" target="_blank">Sand Harbor</a>
     </div>
+    <div class="weather-row">
+      <div class="weather-cloud" id="weather-thu">
+        <div class="w-day">THU · JUN 4</div>
+        <div class="w-icon">·</div>
+        <div class="w-condition">loading</div>
+        <div class="w-temps"><span class="w-high">--</span> / <span class="w-low">--</span></div>
+        <div class="w-precip"></div>
+      </div>
+      <div class="weather-cloud" id="weather-fri">
+        <div class="w-day">FRI · JUN 5</div>
+        <div class="w-icon">·</div>
+        <div class="w-condition">loading</div>
+        <div class="w-temps"><span class="w-high">--</span> / <span class="w-low">--</span></div>
+        <div class="w-precip"></div>
+      </div>
+      <div class="weather-cloud" id="weather-sat">
+        <div class="w-day">SAT · JUN 6</div>
+        <div class="w-icon">·</div>
+        <div class="w-condition">loading</div>
+        <div class="w-temps"><span class="w-high">--</span> / <span class="w-low">--</span></div>
+        <div class="w-precip"></div>
+      </div>
+    </div>
+
     <div class="countdown">
       <span class="countdown-prompt">&gt; </span>countdown to i do:
       <span class="countdown-value" id="countdown">calculating...</span>
@@ -763,6 +866,62 @@ __/        \   \      v      \/        \___
         setTimeout(() => { err.style.display = 'none'; }, 3000);
       }
     }
+
+    // Weather forecast (Open-Meteo, no API key needed)
+    async function fetchWeather() {
+      try {
+        const url = 'https://api.open-meteo.com/v1/forecast?latitude=39.31&longitude=-119.94&daily=weathercode,temperature_2m_max,temperature_2m_min,precipitation_probability_max&temperature_unit=fahrenheit&timezone=America%2FLos_Angeles&start_date=2026-06-04&end_date=2026-06-06';
+        const res = await fetch(url);
+        const data = await res.json();
+        const ids = ['weather-thu', 'weather-fri', 'weather-sat'];
+        ids.forEach((id, i) => {
+          const el = document.getElementById(id);
+          if (!el || !data.daily) return;
+          const code = data.daily.weathercode[i];
+          const hi   = Math.round(data.daily.temperature_2m_max[i]);
+          const lo   = Math.round(data.daily.temperature_2m_min[i]);
+          const rain = data.daily.precipitation_probability_max[i];
+          el.querySelector('.w-icon').textContent      = codeEmoji(code);
+          el.querySelector('.w-condition').textContent = codeText(code);
+          el.querySelector('.w-high').textContent      = hi + '°F';
+          el.querySelector('.w-low').textContent       = lo + '°F';
+          el.querySelector('.w-precip').textContent    = rain > 5 ? rain + '% chance of rain' : '';
+        });
+      } catch(e) {
+        ['weather-thu','weather-fri','weather-sat'].forEach(id => {
+          const el = document.getElementById(id);
+          if (el) el.querySelector('.w-condition').textContent = 'unavailable';
+        });
+      }
+    }
+
+    function codeEmoji(c) {
+      if (c === 0)           return '☀️';
+      if (c === 1)           return '🌤️';
+      if (c === 2)           return '⛅';
+      if (c === 3)           return '☁️';
+      if (c <= 48)           return '🌫️';
+      if (c <= 55)           return '🌦️';
+      if (c <= 65)           return '🌧️';
+      if (c <= 75)           return '🌨️';
+      if (c <= 82)           return '🌦️';
+      return '⛈️';
+    }
+
+    function codeText(c) {
+      if (c === 0)  return 'clear sky';
+      if (c === 1)  return 'mostly clear';
+      if (c === 2)  return 'partly cloudy';
+      if (c === 3)  return 'overcast';
+      if (c <= 48)  return 'foggy';
+      if (c <= 55)  return 'drizzle';
+      if (c <= 65)  return 'rain';
+      if (c <= 75)  return 'snow';
+      if (c <= 82)  return 'showers';
+      return 'thunderstorm';
+    }
+
+    fetchWeather();
 
     // Countdown timer
     function updateCountdown() {
