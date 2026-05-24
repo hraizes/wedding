@@ -34,7 +34,7 @@
     }
 
     /* ── Header ── */
-    .header { text-align: center; margin-bottom: 3rem; }
+    .header { text-align: center; margin-bottom: 3rem; position: relative; }
 
     .planes {
       font-size: 1.1rem;
@@ -329,6 +329,28 @@
     .bridal-event .event-time { color: var(--mauve); }
     .bridal-event .event-time::before { color: rgba(168,112,128,0.4); }
 
+    /* ── Language toggle ── */
+    .lang-toggle {
+      position: absolute;
+      top: 0;
+      right: 0;
+      display: flex;
+      align-items: center;
+      gap: 0.3rem;
+    }
+    .lang-btn {
+      font-family: 'JetBrains Mono', monospace;
+      background: transparent;
+      border: 1px solid var(--border);
+      color: var(--muted);
+      padding: 0.25rem 0.55rem;
+      cursor: pointer;
+      font-size: 0.66rem;
+      letter-spacing: 0.1em;
+      transition: color 0.15s, border-color 0.15s;
+    }
+    .lang-btn.active { border-color: var(--mauve); color: var(--mauve); font-weight: 700; }
+
     /* ── Countdown ── */
     .countdown {
       margin-top: 1rem;
@@ -341,7 +363,6 @@
       font-weight: 700;
     }
     .countdown-prompt { color: var(--sage); }
-
 
     /* ── Weather clouds ── */
     .weather-cloud {
@@ -560,6 +581,10 @@
 <body>
 
   <header class="header">
+    <div class="lang-toggle">
+      <button class="lang-btn active" data-lang="en" onclick="setLang('en')">EN</button>
+      <button class="lang-btn" data-lang="fr" onclick="setLang('fr')">FR</button>
+    </div>
     <div class="planes">✈ &nbsp; ✈ &nbsp; ✈</div>
     <div class="title">HALEY &amp; THOMAS</div>
     <div class="subtitle">// lake tahoe · june 5–6, 2026</div>
@@ -571,7 +596,7 @@
       <a href="https://parks.nv.gov/parks/lake-tahoe-nevada-state-park" target="_blank">Sand Harbor</a>
     </div>
     <div class="countdown">
-      <span class="countdown-prompt">&gt; </span>countdown to i do:
+      <span class="countdown-prompt">&gt; </span><span data-en="countdown to i do:" data-fr="compte à rebours avant le oui :">countdown to i do:</span>
       <span class="countdown-value" id="countdown">calculating...</span>
     </div>
     <pre class="mountains">
@@ -586,13 +611,13 @@ __/        \   \      v      \/        \___
   <hr class="divider" />
 
   <!-- Tabbed Schedule -->
-  <div class="section-label">WEDDING WEEK SCHEDULE</div>
-  <div class="swipe-hint">← swipe to change day →</div>
+  <div class="section-label" data-en="WEDDING WEEK SCHEDULE" data-fr="PROGRAMME DE LA SEMAINE">WEDDING WEEK SCHEDULE</div>
+  <div class="swipe-hint" data-en="← swipe to change day →" data-fr="← glisser pour changer de jour →">← swipe to change day →</div>
 
   <div class="day-tabs">
-    <button class="day-tab" data-day="thu">THU · JUN 4</button>
-    <button class="day-tab active" data-day="fri">FRI · JUN 5 💍</button>
-    <button class="day-tab" data-day="sat">SAT · JUN 6</button>
+    <button class="day-tab" data-day="thu" data-en="THU · JUN 4" data-fr="JEU · 4 JUN">THU · JUN 4</button>
+    <button class="day-tab active" data-day="fri" data-en="FRI · JUN 5 💍" data-fr="VEN · 5 JUN 💍">FRI · JUN 5 💍</button>
+    <button class="day-tab" data-day="sat" data-en="SAT · JUN 6" data-fr="SAM · 6 JUN">SAT · JUN 6</button>
   </div>
 
   <div id="panels">
@@ -600,19 +625,41 @@ __/        \   \      v      \/        \___
     <!-- Thursday -->
     <div class="day-panel" id="panel-thu">
       <div class="weather-cloud" id="weather-thu">
-        <div class="w-day">THU · JUN 4 · INCLINE VILLAGE</div>
+        <div class="w-day" data-en="THU · JUN 4 · INCLINE VILLAGE" data-fr="JEU · 4 JUN · INCLINE VILLAGE">THU · JUN 4 · INCLINE VILLAGE</div>
         <div class="w-times">
-          <div class="w-slot"><div class="w-slot-label">9am</div><div class="w-slot-icon" id="wt-thu-9i">·</div><div class="w-slot-temp" id="wt-thu-9t">--</div><div class="w-slot-rain" id="wt-thu-9r"></div></div>
-          <div class="w-slot"><div class="w-slot-label">12pm</div><div class="w-slot-icon" id="wt-thu-12i">·</div><div class="w-slot-temp" id="wt-thu-12t">--</div><div class="w-slot-rain" id="wt-thu-12r"></div></div>
-          <div class="w-slot"><div class="w-slot-label">3pm</div><div class="w-slot-icon" id="wt-thu-15i">·</div><div class="w-slot-temp" id="wt-thu-15t">--</div><div class="w-slot-rain" id="wt-thu-15r"></div></div>
-          <div class="w-slot"><div class="w-slot-label">6pm</div><div class="w-slot-icon" id="wt-thu-18i">·</div><div class="w-slot-temp" id="wt-thu-18t">--</div><div class="w-slot-rain" id="wt-thu-18r"></div></div>
+          <div class="w-slot">
+            <div class="w-slot-label" data-en="9am" data-fr="9h">9am</div>
+            <div class="w-slot-icon" id="wt-thu-9i">·</div>
+            <div class="w-slot-temp" id="wt-thu-9t">--</div>
+            <div class="w-slot-rain" id="wt-thu-9r"></div>
+          </div>
+          <div class="w-slot">
+            <div class="w-slot-label" data-en="12pm" data-fr="12h">12pm</div>
+            <div class="w-slot-icon" id="wt-thu-12i">·</div>
+            <div class="w-slot-temp" id="wt-thu-12t">--</div>
+            <div class="w-slot-rain" id="wt-thu-12r"></div>
+          </div>
+          <div class="w-slot">
+            <div class="w-slot-label" data-en="3pm" data-fr="15h">3pm</div>
+            <div class="w-slot-icon" id="wt-thu-15i">·</div>
+            <div class="w-slot-temp" id="wt-thu-15t">--</div>
+            <div class="w-slot-rain" id="wt-thu-15r"></div>
+          </div>
+          <div class="w-slot">
+            <div class="w-slot-label" data-en="6pm" data-fr="18h">6pm</div>
+            <div class="w-slot-icon" id="wt-thu-18i">·</div>
+            <div class="w-slot-temp" id="wt-thu-18t">--</div>
+            <div class="w-slot-rain" id="wt-thu-18r"></div>
+          </div>
         </div>
       </div>
       <div class="event">
         <div class="event-time">6:00 PM</div>
         <div>
-          <div class="event-name">Optional Dinner @ Alibi Aleworks</div>
-          <div class="event-detail">
+          <div class="event-name" data-en="Optional Dinner @ Alibi Aleworks" data-fr="Dîner Optionnel @ Alibi Aleworks">Optional Dinner @ Alibi Aleworks</div>
+          <div class="event-detail"
+            data-en="Open to everyone in town — come say hi<br>931 Tahoe Blvd, Incline Village, NV 89451<br><a href='https://alibialeworks.com/incline-public-house/' target='_blank'>alibialeworks.com</a>"
+            data-fr="Ouvert à tous ceux en ville — venez dire bonjour<br>931 Tahoe Blvd, Incline Village, NV 89451<br><a href='https://alibialeworks.com/incline-public-house/' target='_blank'>alibialeworks.com</a>">
             Open to everyone in town — come say hi<br />
             931 Tahoe Blvd, Incline Village, NV 89451<br />
             <a href="https://alibialeworks.com/incline-public-house/" target="_blank">alibialeworks.com</a>
@@ -624,27 +671,50 @@ __/        \   \      v      \/        \___
     <!-- Friday -->
     <div class="day-panel active" id="panel-fri">
       <div class="weather-cloud" id="weather-fri">
-        <div class="w-day">FRI · JUN 5 · TANNENBAUM</div>
+        <div class="w-day" data-en="FRI · JUN 5 · TANNENBAUM" data-fr="VEN · 5 JUN · TANNENBAUM">FRI · JUN 5 · TANNENBAUM</div>
         <div class="w-times">
-          <div class="w-slot"><div class="w-slot-label">9am</div><div class="w-slot-icon" id="wt-fri-9i">·</div><div class="w-slot-temp" id="wt-fri-9t">--</div><div class="w-slot-rain" id="wt-fri-9r"></div></div>
-          <div class="w-slot"><div class="w-slot-label">12pm</div><div class="w-slot-icon" id="wt-fri-12i">·</div><div class="w-slot-temp" id="wt-fri-12t">--</div><div class="w-slot-rain" id="wt-fri-12r"></div></div>
-          <div class="w-slot"><div class="w-slot-label">3pm</div><div class="w-slot-icon" id="wt-fri-15i">·</div><div class="w-slot-temp" id="wt-fri-15t">--</div><div class="w-slot-rain" id="wt-fri-15r"></div></div>
-          <div class="w-slot"><div class="w-slot-label">6pm</div><div class="w-slot-icon" id="wt-fri-18i">·</div><div class="w-slot-temp" id="wt-fri-18t">--</div><div class="w-slot-rain" id="wt-fri-18r"></div></div>
+          <div class="w-slot">
+            <div class="w-slot-label" data-en="9am" data-fr="9h">9am</div>
+            <div class="w-slot-icon" id="wt-fri-9i">·</div>
+            <div class="w-slot-temp" id="wt-fri-9t">--</div>
+            <div class="w-slot-rain" id="wt-fri-9r"></div>
+          </div>
+          <div class="w-slot">
+            <div class="w-slot-label" data-en="12pm" data-fr="12h">12pm</div>
+            <div class="w-slot-icon" id="wt-fri-12i">·</div>
+            <div class="w-slot-temp" id="wt-fri-12t">--</div>
+            <div class="w-slot-rain" id="wt-fri-12r"></div>
+          </div>
+          <div class="w-slot">
+            <div class="w-slot-label" data-en="3pm" data-fr="15h">3pm</div>
+            <div class="w-slot-icon" id="wt-fri-15i">·</div>
+            <div class="w-slot-temp" id="wt-fri-15t">--</div>
+            <div class="w-slot-rain" id="wt-fri-15r"></div>
+          </div>
+          <div class="w-slot">
+            <div class="w-slot-label" data-en="6pm" data-fr="18h">6pm</div>
+            <div class="w-slot-icon" id="wt-fri-18i">·</div>
+            <div class="w-slot-temp" id="wt-fri-18t">--</div>
+            <div class="w-slot-rain" id="wt-fri-18r"></div>
+          </div>
         </div>
       </div>
+
       <div class="event">
         <div class="event-time">4:45 PM</div>
         <div>
-          <div class="event-name">Ketubah Ceremony</div>
-          <div class="event-detail">Family only</div>
+          <div class="event-name" data-en="Ketubah Ceremony" data-fr="Cérémonie de la Ketouba">Ketubah Ceremony</div>
+          <div class="event-detail" data-en="Family only" data-fr="Famille uniquement">Family only</div>
         </div>
       </div>
 
       <div class="event">
         <div class="event-time">5:00 PM</div>
         <div>
-          <div class="event-name">Guests Arrive</div>
-          <div class="event-detail">
+          <div class="event-name" data-en="Guests Arrive" data-fr="Arrivée des Invités">Guests Arrive</div>
+          <div class="event-detail"
+            data-en="<a href='https://tannenbaumevents.com/' target='_blank'>Tannenbaum</a><br>20007 Mt Rose Hwy, Reno, NV 89511"
+            data-fr="<a href='https://tannenbaumevents.com/' target='_blank'>Tannenbaum</a><br>20007 Mt Rose Hwy, Reno, NV 89511">
             <a href="https://tannenbaumevents.com/" target="_blank">Tannenbaum</a><br />
             20007 Mt Rose Hwy, Reno, NV 89511
           </div>
@@ -652,94 +722,102 @@ __/        \   \      v      \/        \___
       </div>
       <div class="event">
         <div class="event-time">5:30 PM</div>
-        <div><div class="event-name">💍 Ceremony</div></div>
+        <div><div class="event-name" data-en="💍 Ceremony" data-fr="💍 Cérémonie">💍 Ceremony</div></div>
       </div>
       <div class="event">
         <div class="event-time">6:00 PM</div>
         <div>
-          <div class="event-name">Cocktail Hour</div>
-          <div class="event-detail">Drinks &amp; mingling while Haley &amp; Thomas take photos</div>
+          <div class="event-name" data-en="Cocktail Hour" data-fr="Heure du Cocktail">Cocktail Hour</div>
+          <div class="event-detail" data-en="Drinks &amp; mingling while Haley &amp; Thomas take photos" data-fr="Cocktail pendant qu'Haley &amp; Thomas font leurs photos">Drinks &amp; mingling while Haley &amp; Thomas take photos</div>
         </div>
       </div>
       <div class="event">
         <div class="event-time">6:30 PM</div>
-        <div><div class="event-name">🥂 Dinner</div></div>
+        <div><div class="event-name" data-en="🥂 Dinner" data-fr="🥂 Dîner">🥂 Dinner</div></div>
       </div>
       <div class="event">
         <div class="event-time">7:30 PM</div>
-        <div><div class="event-name">Speeches</div></div>
+        <div><div class="event-name" data-en="Speeches" data-fr="Discours">Speeches</div></div>
       </div>
       <div class="event">
         <div class="event-time">8:00 PM</div>
-        <div><div class="event-name">Dessert</div></div>
+        <div><div class="event-name" data-en="Dessert" data-fr="Dessert">Dessert</div></div>
       </div>
       <div class="event">
         <div class="event-time">8:30 PM</div>
-        <div><div class="event-name">Dancing 💃</div></div>
+        <div><div class="event-name" data-en="Dancing 💃" data-fr="Danse 💃">Dancing 💃</div></div>
       </div>
       <div class="event">
         <div class="event-time">11:00 PM</div>
-        <div><div class="event-name">Goodbyes</div></div>
+        <div><div class="event-name" data-en="Goodbyes" data-fr="Au revoir">Goodbyes</div></div>
       </div>
 
       <!-- Attire -->
       <div class="attire-box">
-        <div class="attire-label">ATTIRE</div>
-        <div class="attire-text">
+        <div class="attire-label" data-en="ATTIRE" data-fr="TENUE">ATTIRE</div>
+        <div class="attire-text"
+          data-en="Semi-formal. Ties and jackets not required.<br>All colors welcome — our palette if you'd like to coordinate:"
+          data-fr="Semi-formel. Cravates et vestes non obligatoires.<br>Toutes les couleurs bienvenues — notre palette si vous souhaitez vous coordonner :">
           Semi-formal. Ties and jackets not required.<br />
           All colors welcome — our palette if you'd like to coordinate:
         </div>
         <div class="color-swatches">
-          <span class="swatch"><span class="swatch-dot" style="background:#a87080;"></span>Mauve</span>
-          <span class="swatch"><span class="swatch-dot" style="background:#c9a0b0;"></span>Light Mauve</span>
-          <span class="swatch"><span class="swatch-dot" style="background:#7a9e7e;"></span>Sage Green</span>
-          <span class="swatch"><span class="swatch-dot" style="background:#6b8fa8;"></span>French Blue</span>
-          <span class="swatch"><span class="swatch-dot" style="background:#8fafc0;"></span>Dusty Blue</span>
+          <span class="swatch"><span class="swatch-dot" style="background:#a87080;"></span><span data-en="Mauve" data-fr="Mauve">Mauve</span></span>
+          <span class="swatch"><span class="swatch-dot" style="background:#c9a0b0;"></span><span data-en="Light Mauve" data-fr="Mauve Clair">Light Mauve</span></span>
+          <span class="swatch"><span class="swatch-dot" style="background:#7a9e7e;"></span><span data-en="Sage Green" data-fr="Vert Sauge">Sage Green</span></span>
+          <span class="swatch"><span class="swatch-dot" style="background:#6b8fa8;"></span><span data-en="French Blue" data-fr="Bleu Français">French Blue</span></span>
+          <span class="swatch"><span class="swatch-dot" style="background:#8fafc0;"></span><span data-en="Dusty Blue" data-fr="Bleu Poussiéreux">Dusty Blue</span></span>
         </div>
       </div>
 
       <!-- Dinner Menu -->
       <div class="menu-box">
-        <div class="section-label" style="margin-bottom:1rem;">DINNER MENU</div>
-        <div class="menu-category">SALAD</div>
+        <div class="section-label" style="margin-bottom:1rem;" data-en="DINNER MENU" data-fr="MENU DU DÎNER">DINNER MENU</div>
+        <div class="menu-category" data-en="SALAD" data-fr="SALADE">SALAD</div>
         <div class="menu-item">
-          <div class="menu-item-name">Summer Salad</div>
-          <div class="menu-item-detail">Little Gem Lettuce · Strawberries · Apples · Almonds · Feta · White Balsamic Vinaigrette</div>
+          <div class="menu-item-name" data-en="Summer Salad" data-fr="Salade d'Été">Summer Salad</div>
+          <div class="menu-item-detail" data-en="Little Gem Lettuce · Strawberries · Apples · Almonds · Feta · White Balsamic Vinaigrette" data-fr="Laitue · Fraises · Pommes · Amandes · Feta · Vinaigrette Balsamique Blanc">Little Gem Lettuce · Strawberries · Apples · Almonds · Feta · White Balsamic Vinaigrette</div>
         </div>
-        <div class="menu-item"><div class="menu-item-name">Focaccia Bread</div></div>
-        <div class="menu-category">MAINS · BUFFET</div>
+        <div class="menu-item"><div class="menu-item-name" data-en="Focaccia Bread" data-fr="Pain Focaccia">Focaccia Bread</div></div>
+        <div class="menu-category" data-en="MAINS · BUFFET" data-fr="PLATS PRINCIPAUX · BUFFET">MAINS · BUFFET</div>
         <div class="menu-item">
-          <div class="menu-item-name">Roasted Chicken Thighs</div>
-          <div class="menu-item-detail">Lemongrass · Kaffir Lime · Red Curry · Coconut Milk · Cilantro</div>
-        </div>
-        <div class="menu-item">
-          <div class="menu-item-name">Flat Iron Steak</div>
-          <div class="menu-item-detail">Argentinian Chimichurri</div>
+          <div class="menu-item-name" data-en="Roasted Chicken Thighs" data-fr="Cuisses de Poulet Rôties">Roasted Chicken Thighs</div>
+          <div class="menu-item-detail" data-en="Lemongrass · Kaffir Lime · Red Curry · Coconut Milk · Cilantro" data-fr="Citronnelle · Citron Kaffir · Curry Rouge · Lait de Coco · Coriandre">Lemongrass · Kaffir Lime · Red Curry · Coconut Milk · Cilantro</div>
         </div>
         <div class="menu-item">
-          <div class="menu-item-name">Seared Salmon <span style="color:var(--sage);font-size:0.68rem;font-weight:400;">· vegetarian guests</span></div>
-          <div class="menu-item-detail">Plated · no dairy · no gluten · no nuts · no egg</div>
-        </div>
-        <div class="menu-category">SIDES</div>
-        <div class="menu-item">
-          <div class="menu-item-name">Green Beans</div>
-          <div class="menu-item-detail">Garlic · Pickled Red Onion · Chili Flakes</div>
+          <div class="menu-item-name" data-en="Flat Iron Steak" data-fr="Steak Plat de Côtes">Flat Iron Steak</div>
+          <div class="menu-item-detail" data-en="Argentinian Chimichurri" data-fr="Chimichurri Argentin">Argentinian Chimichurri</div>
         </div>
         <div class="menu-item">
-          <div class="menu-item-name">Roasted Russian Fingerling Potatoes</div>
-          <div class="menu-item-detail">Garlic · Fresh Herbs · Lemon</div>
+          <div class="menu-item-name"
+            data-en="Seared Salmon <span style='color:var(--sage);font-size:0.68rem;font-weight:400;'>· vegetarian guests</span>"
+            data-fr="Saumon Poêlé <span style='color:var(--sage);font-size:0.68rem;font-weight:400;'>· pour les végétariens</span>">
+            Seared Salmon <span style="color:var(--sage);font-size:0.68rem;font-weight:400;">· vegetarian guests</span>
+          </div>
+          <div class="menu-item-detail" data-en="Plated · no dairy · no gluten · no nuts · no egg" data-fr="Assiette · sans lactose · sans gluten · sans noix · sans œuf">Plated · no dairy · no gluten · no nuts · no egg</div>
         </div>
-        <div class="menu-item"><div class="menu-item-name">Basmati Rice</div></div>
-        <div class="menu-category">DESSERT</div>
+        <div class="menu-category" data-en="SIDES" data-fr="ACCOMPAGNEMENTS">SIDES</div>
         <div class="menu-item">
-          <div class="menu-item-name">Wedding Cake</div>
-          <div class="menu-item-detail">Non-dairy option available</div>
+          <div class="menu-item-name" data-en="Green Beans" data-fr="Haricots Verts">Green Beans</div>
+          <div class="menu-item-detail" data-en="Garlic · Pickled Red Onion · Chili Flakes" data-fr="Ail · Oignon Rouge Mariné · Flocons de Piment">Garlic · Pickled Red Onion · Chili Flakes</div>
         </div>
         <div class="menu-item">
-          <div class="menu-item-name">Cupcakes</div>
-          <div class="menu-item-detail">Gluten-free &amp; egg-free</div>
+          <div class="menu-item-name" data-en="Roasted Russian Fingerling Potatoes" data-fr="Pommes de Terre Fingerling Rôties">Roasted Russian Fingerling Potatoes</div>
+          <div class="menu-item-detail" data-en="Garlic · Fresh Herbs · Lemon" data-fr="Ail · Herbes Fraîches · Citron">Garlic · Fresh Herbs · Lemon</div>
         </div>
-        <div class="dietary-note">
+        <div class="menu-item"><div class="menu-item-name" data-en="Basmati Rice" data-fr="Riz Basmati">Basmati Rice</div></div>
+        <div class="menu-category" data-en="DESSERT" data-fr="DESSERT">DESSERT</div>
+        <div class="menu-item">
+          <div class="menu-item-name" data-en="Wedding Cake" data-fr="Gâteau de Mariage">Wedding Cake</div>
+          <div class="menu-item-detail" data-en="Non-dairy option available" data-fr="Option sans lactose disponible">Non-dairy option available</div>
+        </div>
+        <div class="menu-item">
+          <div class="menu-item-name" data-en="Cupcakes" data-fr="Cupcakes">Cupcakes</div>
+          <div class="menu-item-detail" data-en="Gluten-free &amp; egg-free" data-fr="Sans gluten &amp; sans œuf">Gluten-free &amp; egg-free</div>
+        </div>
+        <div class="dietary-note"
+          data-en="✓ &nbsp;Egg-free · nut-free · gluten-free · non-dairy options available<br>✓ &nbsp;Kids meal: chicken tenders · tater tots · fruit"
+          data-fr="✓ &nbsp;Sans œuf · sans noix · sans gluten · options sans lactose disponibles<br>✓ &nbsp;Menu enfant : nuggets de poulet · potatoes · fruits">
           ✓ &nbsp;Egg-free · nut-free · gluten-free · non-dairy options available<br />
           ✓ &nbsp;Kids meal: chicken tenders · tater tots · fruit
         </div>
@@ -749,19 +827,41 @@ __/        \   \      v      \/        \___
     <!-- Saturday -->
     <div class="day-panel" id="panel-sat">
       <div class="weather-cloud" id="weather-sat">
-        <div class="w-day">SAT · JUN 6 · INCLINE VILLAGE</div>
+        <div class="w-day" data-en="SAT · JUN 6 · INCLINE VILLAGE" data-fr="SAM · 6 JUN · INCLINE VILLAGE">SAT · JUN 6 · INCLINE VILLAGE</div>
         <div class="w-times">
-          <div class="w-slot"><div class="w-slot-label">9am</div><div class="w-slot-icon" id="wt-sat-9i">·</div><div class="w-slot-temp" id="wt-sat-9t">--</div><div class="w-slot-rain" id="wt-sat-9r"></div></div>
-          <div class="w-slot"><div class="w-slot-label">12pm</div><div class="w-slot-icon" id="wt-sat-12i">·</div><div class="w-slot-temp" id="wt-sat-12t">--</div><div class="w-slot-rain" id="wt-sat-12r"></div></div>
-          <div class="w-slot"><div class="w-slot-label">3pm</div><div class="w-slot-icon" id="wt-sat-15i">·</div><div class="w-slot-temp" id="wt-sat-15t">--</div><div class="w-slot-rain" id="wt-sat-15r"></div></div>
-          <div class="w-slot"><div class="w-slot-label">6pm</div><div class="w-slot-icon" id="wt-sat-18i">·</div><div class="w-slot-temp" id="wt-sat-18t">--</div><div class="w-slot-rain" id="wt-sat-18r"></div></div>
+          <div class="w-slot">
+            <div class="w-slot-label" data-en="9am" data-fr="9h">9am</div>
+            <div class="w-slot-icon" id="wt-sat-9i">·</div>
+            <div class="w-slot-temp" id="wt-sat-9t">--</div>
+            <div class="w-slot-rain" id="wt-sat-9r"></div>
+          </div>
+          <div class="w-slot">
+            <div class="w-slot-label" data-en="12pm" data-fr="12h">12pm</div>
+            <div class="w-slot-icon" id="wt-sat-12i">·</div>
+            <div class="w-slot-temp" id="wt-sat-12t">--</div>
+            <div class="w-slot-rain" id="wt-sat-12r"></div>
+          </div>
+          <div class="w-slot">
+            <div class="w-slot-label" data-en="3pm" data-fr="15h">3pm</div>
+            <div class="w-slot-icon" id="wt-sat-15i">·</div>
+            <div class="w-slot-temp" id="wt-sat-15t">--</div>
+            <div class="w-slot-rain" id="wt-sat-15r"></div>
+          </div>
+          <div class="w-slot">
+            <div class="w-slot-label" data-en="6pm" data-fr="18h">6pm</div>
+            <div class="w-slot-icon" id="wt-sat-18i">·</div>
+            <div class="w-slot-temp" id="wt-sat-18t">--</div>
+            <div class="w-slot-rain" id="wt-sat-18r"></div>
+          </div>
         </div>
       </div>
       <div class="event">
         <div class="event-time">10:00 AM</div>
         <div>
-          <div class="event-name">🏖 Meet at Sand Harbor</div>
-          <div class="event-detail">
+          <div class="event-name" data-en="🏖 Meet at Sand Harbor" data-fr="🏖 Rendez-vous à Sand Harbor">🏖 Meet at Sand Harbor</div>
+          <div class="event-detail"
+            data-en="<a href='https://parks.nv.gov/parks/lake-tahoe-nevada-state-park' target='_blank'>Lake Tahoe Nevada State Park</a> &nbsp;·&nbsp; <a href='https://parks.nv.gov/sand-harbor-ramada-photos' target='_blank'>venue photos</a><br>2005 NV-28, Incline Village, NV 89452<br><br><strong style='color:var(--text);'>Venue</strong> · the Ramada · group day use area w/ BBQ (up to 120 guests)<br><strong style='color:var(--text);'>Entry fee</strong> · $10/vehicle (NV) · $15/vehicle (non-NV)<br><strong style='color:var(--text);'>Lunch provided</strong> · burgers, hotdogs, chips, fruit, drinks &amp; more<br><strong style='color:var(--text);'>Wear</strong> · swimsuit, sunscreen, towel, flip flops"
+            data-fr="<a href='https://parks.nv.gov/parks/lake-tahoe-nevada-state-park' target='_blank'>Lake Tahoe Nevada State Park</a> &nbsp;·&nbsp; <a href='https://parks.nv.gov/sand-harbor-ramada-photos' target='_blank'>photos du lieu</a><br>2005 NV-28, Incline Village, NV 89452<br><br><strong style='color:var(--text);'>Lieu</strong> · the Ramada · espace de groupe avec BBQ (jusqu'à 120 invités)<br><strong style='color:var(--text);'>Entrée</strong> · 10$/véhicule (NV) · 15$/véhicule (hors-NV)<br><strong style='color:var(--text);'>Déjeuner fourni</strong> · burgers, hot-dogs, chips, fruits, boissons &amp; plus<br><strong style='color:var(--text);'>Tenue</strong> · maillot de bain, crème solaire, serviette, tongs">
             <a href="https://parks.nv.gov/parks/lake-tahoe-nevada-state-park" target="_blank">Lake Tahoe Nevada State Park</a>
             &nbsp;·&nbsp;
             <a href="https://parks.nv.gov/sand-harbor-ramada-photos" target="_blank">venue photos</a><br />
@@ -775,30 +875,32 @@ __/        \   \      v      \/        \___
       </div>
       <div class="event">
         <div class="event-time">3:00 PM</div>
-        <div><div class="event-name">Pack up + Head out</div></div>
+        <div><div class="event-name" data-en="Pack up + Head out" data-fr="Rangement + Départ">Pack up + Head out</div></div>
       </div>
       <div class="event">
         <div class="event-time">5:30 PM</div>
-        <div><div class="event-name">Tahoe Your Way</div></div>
+        <div><div class="event-name" data-en="Tahoe Your Way" data-fr="Tahoe Comme Vous Voulez">Tahoe Your Way</div></div>
       </div>
     </div>
 
   </div>
 
   <!-- Venue Map -->
-  <div class="section-label" style="margin-top:2rem;">GETTING AROUND</div>
-  <div class="event-detail" style="margin-bottom:1rem; font-size:0.76rem; color:var(--muted);">
+  <div class="section-label" style="margin-top:2rem;" data-en="GETTING AROUND" data-fr="SE DÉPLACER">GETTING AROUND</div>
+  <div class="event-detail" style="margin-bottom:1rem; font-size:0.76rem; color:var(--muted);"
+    data-en="⚠️ &nbsp;Ubers and rideshares can be very expensive and unreliable in Incline Village — please plan accordingly and arrange transportation in advance."
+    data-fr="⚠️ &nbsp;Les Uber et covoiturages peuvent être très chers et peu fiables à Incline Village — veuillez prévoir en conséquence et organiser votre transport à l'avance.">
     ⚠️ &nbsp;Ubers and rideshares can be very expensive and unreliable in Incline Village — please plan accordingly and arrange transportation in advance.
   </div>
   <div id="venue-map"></div>
 
   <!-- Bridal Party Gate -->
   <div class="bridal-gate">
-    <div class="bridal-gate-label">BRIDAL PARTY DETAILS</div>
+    <div class="bridal-gate-label" data-en="BRIDAL PARTY DETAILS" data-fr="DÉTAILS DU CORTÈGE">BRIDAL PARTY DETAILS</div>
 
     <div class="gate-locked" id="gate">
-      <button class="unlock-btn" onclick="showInput()">[ BRIDAL PARTY ACCESS ]</button>
-      <div class="unlock-hint">password required · text Haley if you need it</div>
+      <button class="unlock-btn" onclick="showInput()" data-en="[ BRIDAL PARTY ACCESS ]" data-fr="[ ACCÈS CORTÈGE ]">[ BRIDAL PARTY ACCESS ]</button>
+      <div class="unlock-hint" data-en="password required · text Haley if you need it" data-fr="mot de passe requis · contactez Haley si besoin">password required · text Haley if you need it</div>
       <div class="pw-row" id="pw-row">
         <input
           class="pw-input"
@@ -809,36 +911,38 @@ __/        \   \      v      \/        \___
         />
         <button class="pw-submit" onclick="checkPw()">→</button>
       </div>
-      <div class="pw-error" id="pw-error">// access denied. try again.</div>
+      <div class="pw-error" id="pw-error" data-en="// access denied. try again." data-fr="// accès refusé. réessayez.">// access denied. try again.</div>
     </div>
 
     <div class="bridal-content" id="bridal-content">
 
-      <div class="bridal-day-header">THU · JUNE 4 · PRE-WEDDING DAY</div>
+      <div class="bridal-day-header" data-en="THU · JUNE 4 · PRE-WEDDING DAY" data-fr="JEU · 4 JUIN · VEILLE DE MARIAGE">THU · JUNE 4 · PRE-WEDDING DAY</div>
       <div style="font-size:0.7rem; color:var(--muted); margin: 0.5rem 0 1rem; font-style:italic;">Haley, Thomas, Caitlyn, Julie, Ashley, Deb, Steve</div>
 
       <div class="bridal-event">
         <div class="event-time">11:30 AM</div>
         <div>
-          <div class="event-name">Trader Joe's + Costco Run</div>
-          <div class="event-detail">Flowers + BBQ supplies · the unofficial rehearsal of the rehearsal</div>
+          <div class="event-name" data-en="Trader Joe's + Costco Run" data-fr="Courses Trader Joe's + Costco">Trader Joe's + Costco Run</div>
+          <div class="event-detail" data-en="Flowers + BBQ supplies · the unofficial rehearsal of the rehearsal" data-fr="Fleurs + fournitures BBQ · la répétition non officielle de la répétition">Flowers + BBQ supplies · the unofficial rehearsal of the rehearsal</div>
         </div>
       </div>
 
-      <div class="bridal-day-header">FRI · JUNE 5 · WEDDING MORNING</div>
+      <div class="bridal-day-header" data-en="FRI · JUNE 5 · WEDDING MORNING" data-fr="VEN · 5 JUIN · MATIN DU MARIAGE">FRI · JUNE 5 · WEDDING MORNING</div>
 
       <div class="bridal-event">
         <div class="event-time">8:00 AM</div>
         <div>
-          <div class="event-name">Pre-Wedding Run 🏃</div>
+          <div class="event-name" data-en="Pre-Wedding Run 🏃" data-fr="Course Avant le Mariage 🏃">Pre-Wedding Run 🏃</div>
         </div>
       </div>
 
       <div class="bridal-event">
         <div class="event-time">9:30 AM</div>
         <div>
-          <div class="event-name">Meet at Recreation Center Parking Lot</div>
-          <div class="event-detail">
+          <div class="event-name" data-en="Meet at Recreation Center Parking Lot" data-fr="Rendez-vous au Parking du Centre de Loisirs">Meet at Recreation Center Parking Lot</div>
+          <div class="event-detail"
+            data-en="Walk to ceremony site for rehearsal<br><a href='https://maps.app.goo.gl/45ocKybMdkubFChU8' target='_blank'>→ Directions &amp; parking info</a>"
+            data-fr="Marche jusqu'au lieu de la cérémonie<br><a href='https://maps.app.goo.gl/45ocKybMdkubFChU8' target='_blank'>→ Itinéraire &amp; infos stationnement</a>">
             Walk to ceremony site for rehearsal<br />
             <a href="https://maps.app.goo.gl/45ocKybMdkubFChU8" target="_blank">→ Directions &amp; parking info</a>
           </div>
@@ -848,15 +952,17 @@ __/        \   \      v      \/        \___
       <div class="bridal-event">
         <div class="event-time">10:00 AM</div>
         <div>
-          <div class="event-name">Rehearsal</div>
+          <div class="event-name" data-en="Rehearsal" data-fr="Répétition">Rehearsal</div>
         </div>
       </div>
 
       <div class="bridal-event">
         <div class="event-time">11:00 AM</div>
         <div>
-          <div class="event-name">Split to get ready</div>
-          <div class="event-detail">
+          <div class="event-name" data-en="Split to get ready" data-fr="Séparation pour se préparer">Split to get ready</div>
+          <div class="event-detail"
+            data-en="Girls → Haley's house<br>Thomas + boys → family Airbnb"
+            data-fr="Filles → chez Haley<br>Thomas + garçons → Airbnb de la famille">
             Girls → Haley's house<br />
             Thomas + boys → family Airbnb
           </div>
@@ -866,15 +972,15 @@ __/        \   \      v      \/        \___
       <div class="bridal-event">
         <div class="event-time">2:30 PM</div>
         <div>
-          <div class="event-name">First Look + Bridal Party Photos 📸</div>
+          <div class="event-name" data-en="First Look + Bridal Party Photos 📸" data-fr="Premier Regard + Photos du Cortège 📸">First Look + Bridal Party Photos 📸</div>
         </div>
       </div>
 
       <div class="bridal-event">
         <div class="event-time">3:30 PM</div>
         <div>
-          <div class="event-name">Tannenbaum Setup</div>
-          <div class="event-detail">Tables · decorations · DJ arrives</div>
+          <div class="event-name" data-en="Tannenbaum Setup" data-fr="Installation à Tannenbaum">Tannenbaum Setup</div>
+          <div class="event-detail" data-en="Tables · decorations · DJ arrives" data-fr="Tables · décorations · arrivée du DJ">Tables · decorations · DJ arrives</div>
         </div>
       </div>
 
@@ -883,16 +989,38 @@ __/        \   \      v      \/        \___
 
   <!-- Just Married banner plane -->
   <div class="just-married-plane">
-    <span class="jm-banner">JUST MARRIED ♡</span>
+    <span class="jm-banner" data-en="JUST MARRIED ♡" data-fr="JUSTE MARIÉS ♡">JUST MARRIED ♡</span>
     <span class="jm-rope"></span>
     <span class="jm-plane-icon">✈</span>
   </div>
 
-<div class="footer">✈ &nbsp;·&nbsp; see you in tahoe &nbsp;·&nbsp; ✈</div>
+  <div class="footer" data-en="✈ &nbsp;·&nbsp; see you in tahoe &nbsp;·&nbsp; ✈" data-fr="✈ &nbsp;·&nbsp; à bientôt à tahoe &nbsp;·&nbsp; ✈">✈ &nbsp;·&nbsp; see you in tahoe &nbsp;·&nbsp; ✈</div>
 
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
   <script>
     const PASSWORD = 'kiwi';
+    let currentLang = 'en';
+
+    function setLang(lang) {
+      currentLang = lang;
+      document.documentElement.lang = lang;
+      document.querySelectorAll('.lang-btn').forEach(btn => {
+        btn.classList.toggle('active', btn.dataset.lang === lang);
+      });
+      document.querySelectorAll('[data-en]').forEach(el => {
+        el.innerHTML = el.dataset[lang] || el.dataset.en;
+      });
+      document.querySelectorAll('[data-f]').forEach(el => {
+        const f = parseFloat(el.dataset.f);
+        if (!isNaN(f)) {
+          el.textContent = lang === 'fr'
+            ? Math.round((f - 32) * 5 / 9) + '°'
+            : Math.round(f) + '°';
+        }
+      });
+      const pwField = document.getElementById('pw-field');
+      if (pwField) pwField.placeholder = lang === 'fr' ? 'entrer le mot de passe' : 'enter password';
+    }
 
     function showInput() {
       document.getElementById('pw-row').style.display = 'flex';
@@ -913,25 +1041,20 @@ __/        \   \      v      \/        \___
       }
     }
 
-    // Weather forecast — hourly snapshots (Open-Meteo, no API key needed)
-    // Thu + Sat use Incline Village coords; Fri uses Tannenbaum coords (higher elevation)
     async function fetchWeather() {
       const params = 'hourly=temperature_2m,weathercode,precipitation_probability&temperature_unit=fahrenheit&timezone=America%2FLos_Angeles';
       const urlIV   = `https://api.open-meteo.com/v1/forecast?latitude=39.2496&longitude=-119.9719&${params}&start_date=2026-06-04&end_date=2026-06-06`;
       const urlTann = `https://api.open-meteo.com/v1/forecast?latitude=39.3378&longitude=-119.9256&${params}&start_date=2026-06-05&end_date=2026-06-05`;
 
       try {
-        const [ivRes, tannRes]     = await Promise.all([fetch(urlIV), fetch(urlTann)]);
-        const [ivData, tannData]   = await Promise.all([ivRes.json(), tannRes.json()]);
+        const [ivRes, tannRes]   = await Promise.all([fetch(urlIV), fetch(urlTann)]);
+        const [ivData, tannData] = await Promise.all([ivRes.json(), tannRes.json()]);
         const hours = [9, 12, 15, 18];
 
-        // Thu = day index 0 in IV data
         hours.forEach(h => fillSlot('thu', h, ivData,   0 * 24 + h));
-        // Fri = day index 0 in Tannenbaum data
         hours.forEach(h => fillSlot('fri', h, tannData, 0 * 24 + h));
-        // Sat = day index 2 in IV data
         hours.forEach(h => fillSlot('sat', h, ivData,   2 * 24 + h));
-      } catch(e) { /* silently fail — placeholders stay */ }
+      } catch(e) { }
     }
 
     function fillSlot(day, h, data, idx) {
@@ -939,7 +1062,11 @@ __/        \   \      v      \/        \___
       const rain = data.hourly.precipitation_probability[idx];
       const code = data.hourly.weathercode[idx];
       document.getElementById(`wt-${day}-${h}i`).textContent = codeEmoji(code);
-      document.getElementById(`wt-${day}-${h}t`).textContent = temp + '°';
+      const tempEl = document.getElementById(`wt-${day}-${h}t`);
+      tempEl.dataset.f = temp;
+      tempEl.textContent = currentLang === 'fr'
+        ? Math.round((temp - 32) * 5 / 9) + '°'
+        : temp + '°';
       document.getElementById(`wt-${day}-${h}r`).textContent = rain > 10 ? rain + '%' : '';
     }
 
@@ -985,10 +1112,10 @@ __/        \   \      v      \/        \___
       }).addTo(map);
     }
 
-    const RNO       = [39.4986, -119.7681];
-    const TANN      = [39.3378, -119.9256];
-    const INCLINE   = [39.2496, -119.9719];
-    const SAND      = [39.1972, -119.9303];
+    const RNO     = [39.4986, -119.7681];
+    const TANN    = [39.3378, -119.9256];
+    const INCLINE = [39.2496, -119.9719];
+    const SAND    = [39.1972, -119.9303];
 
     L.marker(RNO,     { icon: pinIcon('#5a8aaa', '✈', 'RNO Airport') }).addTo(map);
     L.marker(TANN,    { icon: pinIcon('#9a6070', '💍', 'Tannenbaum') }).addTo(map);
@@ -1007,7 +1134,7 @@ __/        \   \      v      \/        \___
 
     // Day tabs
     const DAYS = ['thu', 'fri', 'sat'];
-    let currentDay = 1; // start on Friday
+    let currentDay = 1;
 
     function switchDay(idx) {
       currentDay = idx;
@@ -1037,7 +1164,7 @@ __/        \   \      v      \/        \___
       const now = new Date();
       const diff = wedding - now;
       if (diff <= 0) {
-        document.getElementById('countdown').textContent = '🎉 today!!';
+        document.getElementById('countdown').textContent = currentLang === 'fr' ? '🎉 aujourd\'hui !!' : '🎉 today!!';
         return;
       }
       const d = Math.floor(diff / 86400000);
@@ -1068,7 +1195,9 @@ __/        \   \      v      \/        \___
     function launchPlanes() {
       const msg = document.createElement('div');
       msg.className = 'konami-msg';
-      msg.innerHTML = '✈ ✈ ✈<br/>see you in tahoe!<br/>✈ ✈ ✈';
+      msg.innerHTML = currentLang === 'fr'
+        ? '✈ ✈ ✈<br/>à bientôt à tahoe !<br/>✈ ✈ ✈'
+        : '✈ ✈ ✈<br/>see you in tahoe!<br/>✈ ✈ ✈';
       document.body.appendChild(msg);
       setTimeout(() => msg.remove(), 3000);
 
