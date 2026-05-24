@@ -346,13 +346,14 @@
       position: fixed;
       right: 1.2rem;
       top: 40%;
-      font-size: 1.6rem;
+      font-size: 3rem;
       cursor: default;
       user-select: none;
       animation: bob 4s ease-in-out infinite;
       transition: transform 0.2s;
       z-index: 100;
       line-height: 1;
+      filter: drop-shadow(0 2px 6px rgba(90,138,170,0.4));
     }
     .float-plane:hover { animation: zoom 0.4s ease-in-out infinite alternate; }
     .float-plane .contrail {
@@ -361,15 +362,15 @@
       top: 50%;
       transform: translateY(-50%);
       display: flex;
-      gap: 4px;
-      padding-right: 4px;
+      gap: 5px;
+      padding-right: 6px;
       opacity: 0;
       transition: opacity 0.3s;
     }
     .float-plane:hover .contrail { opacity: 1; }
     .contrail-dot {
-      width: 4px;
-      height: 4px;
+      width: 6px;
+      height: 6px;
       border-radius: 50%;
       background: var(--dusty-blue);
       opacity: 0.6;
@@ -441,7 +442,7 @@
   <header class="header">
     <div class="planes">✈ &nbsp; ✈ &nbsp; ✈</div>
     <div class="title">HALEY &amp; THOMAS</div>
-    <div class="subtitle">// lake tahoe · june 5, 2026</div>
+    <div class="subtitle">// lake tahoe · june 5–6, 2026</div>
     <div class="venue-links">
       <a href="https://alibialeworks.com/incline-public-house/" target="_blank">Alibi Aleworks</a>
       &nbsp;·&nbsp;
