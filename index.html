@@ -624,7 +624,7 @@ __/        \   \      v      \/        \___
     <!-- Friday -->
     <div class="day-panel active" id="panel-fri">
       <div class="weather-cloud" id="weather-fri">
-        <div class="w-day">FRI · JUN 5 · INCLINE VILLAGE</div>
+        <div class="w-day">FRI · JUN 5 · TANNENBAUM</div>
         <div class="w-times">
           <div class="w-slot"><div class="w-slot-label">9am</div><div class="w-slot-icon" id="wt-fri-9i">·</div><div class="w-slot-temp" id="wt-fri-9t">--</div><div class="w-slot-rain" id="wt-fri-9r"></div></div>
           <div class="w-slot"><div class="w-slot-label">12pm</div><div class="w-slot-icon" id="wt-fri-12i">·</div><div class="w-slot-temp" id="wt-fri-12t">--</div><div class="w-slot-rain" id="wt-fri-12r"></div></div>
@@ -889,7 +889,7 @@ __/        \   \      v      \/        \___
 
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
   <script>
-    const PASSWORD = 'tahoe2026';
+    const PASSWORD = 'kiwi';
 
     function showInput() {
       document.getElementById('pw-row').style.display = 'flex';
@@ -911,29 +911,33 @@ __/        \   \      v      \/        \___
     }
 
     // Weather forecast — hourly snapshots (Open-Meteo, no API key needed)
+    // Thu + Sat use Incline Village coords; Fri uses Tannenbaum coords (higher elevation)
     async function fetchWeather() {
-      try {
-        const url = 'https://api.open-meteo.com/v1/forecast?latitude=39.2496&longitude=-119.9719&hourly=temperature_2m,weathercode,precipitation_probability&temperature_unit=fahrenheit&timezone=America%2FLos_Angeles&start_date=2026-06-04&end_date=2026-06-06';
-        const res  = await fetch(url);
-        const data = await res.json();
-        const temps = data.hourly.temperature_2m;
-        const codes = data.hourly.weathercode;
-        const rains = data.hourly.precipitation_probability;
+      const params = 'hourly=temperature_2m,weathercode,precipitation_probability&temperature_unit=fahrenheit&timezone=America%2FLos_Angeles';
+      const urlIV   = `https://api.open-meteo.com/v1/forecast?latitude=39.2496&longitude=-119.9719&${params}&start_date=2026-06-04&end_date=2026-06-06`;
+      const urlTann = `https://api.open-meteo.com/v1/forecast?latitude=39.3378&longitude=-119.9256&${params}&start_date=2026-06-05&end_date=2026-06-05`;
 
-        const days  = ['thu', 'fri', 'sat'];
+      try {
+        const [ivRes, tannRes]     = await Promise.all([fetch(urlIV), fetch(urlTann)]);
+        const [ivData, tannData]   = await Promise.all([ivRes.json(), tannRes.json()]);
         const hours = [9, 12, 15, 18];
 
-        days.forEach((day, di) => {
-          hours.forEach(h => {
-            const idx  = di * 24 + h;
-            const temp = Math.round(temps[idx]);
-            const rain = rains[idx];
-            document.getElementById(`wt-${day}-${h}i`).textContent = codeEmoji(codes[idx]);
-            document.getElementById(`wt-${day}-${h}t`).textContent = temp + '°';
-            document.getElementById(`wt-${day}-${h}r`).textContent = rain > 10 ? rain + '%' : '';
-          });
-        });
+        // Thu = day index 0 in IV data
+        hours.forEach(h => fillSlot('thu', h, ivData,   0 * 24 + h));
+        // Fri = day index 0 in Tannenbaum data
+        hours.forEach(h => fillSlot('fri', h, tannData, 0 * 24 + h));
+        // Sat = day index 2 in IV data
+        hours.forEach(h => fillSlot('sat', h, ivData,   2 * 24 + h));
       } catch(e) { /* silently fail — placeholders stay */ }
+    }
+
+    function fillSlot(day, h, data, idx) {
+      const temp = Math.round(data.hourly.temperature_2m[idx]);
+      const rain = data.hourly.precipitation_probability[idx];
+      const code = data.hourly.weathercode[idx];
+      document.getElementById(`wt-${day}-${h}i`).textContent = codeEmoji(code);
+      document.getElementById(`wt-${day}-${h}t`).textContent = temp + '°';
+      document.getElementById(`wt-${day}-${h}r`).textContent = rain > 10 ? rain + '%' : '';
     }
 
     function codeEmoji(c) {
