@@ -348,8 +348,7 @@
       background: var(--surface);
       border: 1px solid var(--border);
       border-radius: 12px;
-      padding: 1rem 2rem 0.9rem;
-      text-align: center;
+      padding: 1rem 1rem 0.9rem;
       box-shadow: 0 2px 8px rgba(46,32,24,0.07);
       margin-bottom: 1.5rem;
     }
@@ -358,32 +357,38 @@
       font-size: 0.62rem;
       color: var(--muted);
       letter-spacing: 0.14em;
-      margin-bottom: 0.4rem;
+      margin-bottom: 0.8rem;
+      text-align: center;
     }
 
-    .w-icon { font-size: 1.6rem; line-height: 1.2; }
+    .w-times {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0.3rem;
+    }
 
-    .w-condition {
-      font-size: 0.62rem;
+    .w-slot { text-align: center; }
+
+    .w-slot-label {
+      font-size: 0.6rem;
       color: var(--muted);
-      margin-top: 0.2rem;
-      font-style: italic;
+      letter-spacing: 0.05em;
     }
 
-    .w-temps {
-      font-size: 0.78rem;
+    .w-slot-icon {
+      font-size: 1.4rem;
+      line-height: 1.6;
+    }
+
+    .w-slot-temp {
+      font-size: 0.75rem;
       font-weight: 600;
       color: var(--text);
-      margin-top: 0.3rem;
     }
 
-    .w-high { color: var(--mauve); }
-    .w-low  { color: var(--blue); }
-
-    .w-precip {
-      font-size: 0.6rem;
+    .w-slot-rain {
+      font-size: 0.58rem;
       color: var(--blue);
-      margin-top: 0.2rem;
       min-height: 0.8rem;
     }
 
@@ -595,11 +600,13 @@ __/        \   \      v      \/        \___
     <!-- Thursday -->
     <div class="day-panel" id="panel-thu">
       <div class="weather-cloud" id="weather-thu">
-        <div class="w-day">THU · JUN 4</div>
-        <div class="w-icon">⟳</div>
-        <div class="w-condition">loading</div>
-        <div class="w-temps"><span class="w-high">--</span> / <span class="w-low">--</span></div>
-        <div class="w-precip"></div>
+        <div class="w-day">THU · JUN 4 · INCLINE VILLAGE</div>
+        <div class="w-times">
+          <div class="w-slot"><div class="w-slot-label">9am</div><div class="w-slot-icon" id="wt-thu-9i">·</div><div class="w-slot-temp" id="wt-thu-9t">--</div><div class="w-slot-rain" id="wt-thu-9r"></div></div>
+          <div class="w-slot"><div class="w-slot-label">12pm</div><div class="w-slot-icon" id="wt-thu-12i">·</div><div class="w-slot-temp" id="wt-thu-12t">--</div><div class="w-slot-rain" id="wt-thu-12r"></div></div>
+          <div class="w-slot"><div class="w-slot-label">3pm</div><div class="w-slot-icon" id="wt-thu-15i">·</div><div class="w-slot-temp" id="wt-thu-15t">--</div><div class="w-slot-rain" id="wt-thu-15r"></div></div>
+          <div class="w-slot"><div class="w-slot-label">6pm</div><div class="w-slot-icon" id="wt-thu-18i">·</div><div class="w-slot-temp" id="wt-thu-18t">--</div><div class="w-slot-rain" id="wt-thu-18r"></div></div>
+        </div>
       </div>
       <div class="event">
         <div class="event-time">6:00 PM</div>
@@ -617,11 +624,13 @@ __/        \   \      v      \/        \___
     <!-- Friday -->
     <div class="day-panel active" id="panel-fri">
       <div class="weather-cloud" id="weather-fri">
-        <div class="w-day">FRI · JUN 5</div>
-        <div class="w-icon">⟳</div>
-        <div class="w-condition">loading</div>
-        <div class="w-temps"><span class="w-high">--</span> / <span class="w-low">--</span></div>
-        <div class="w-precip"></div>
+        <div class="w-day">FRI · JUN 5 · INCLINE VILLAGE</div>
+        <div class="w-times">
+          <div class="w-slot"><div class="w-slot-label">9am</div><div class="w-slot-icon" id="wt-fri-9i">·</div><div class="w-slot-temp" id="wt-fri-9t">--</div><div class="w-slot-rain" id="wt-fri-9r"></div></div>
+          <div class="w-slot"><div class="w-slot-label">12pm</div><div class="w-slot-icon" id="wt-fri-12i">·</div><div class="w-slot-temp" id="wt-fri-12t">--</div><div class="w-slot-rain" id="wt-fri-12r"></div></div>
+          <div class="w-slot"><div class="w-slot-label">3pm</div><div class="w-slot-icon" id="wt-fri-15i">·</div><div class="w-slot-temp" id="wt-fri-15t">--</div><div class="w-slot-rain" id="wt-fri-15r"></div></div>
+          <div class="w-slot"><div class="w-slot-label">6pm</div><div class="w-slot-icon" id="wt-fri-18i">·</div><div class="w-slot-temp" id="wt-fri-18t">--</div><div class="w-slot-rain" id="wt-fri-18r"></div></div>
+        </div>
       </div>
       <div class="event">
         <div class="event-time">4:45 PM</div>
@@ -740,11 +749,13 @@ __/        \   \      v      \/        \___
     <!-- Saturday -->
     <div class="day-panel" id="panel-sat">
       <div class="weather-cloud" id="weather-sat">
-        <div class="w-day">SAT · JUN 6</div>
-        <div class="w-icon">⟳</div>
-        <div class="w-condition">loading</div>
-        <div class="w-temps"><span class="w-high">--</span> / <span class="w-low">--</span></div>
-        <div class="w-precip"></div>
+        <div class="w-day">SAT · JUN 6 · INCLINE VILLAGE</div>
+        <div class="w-times">
+          <div class="w-slot"><div class="w-slot-label">9am</div><div class="w-slot-icon" id="wt-sat-9i">·</div><div class="w-slot-temp" id="wt-sat-9t">--</div><div class="w-slot-rain" id="wt-sat-9r"></div></div>
+          <div class="w-slot"><div class="w-slot-label">12pm</div><div class="w-slot-icon" id="wt-sat-12i">·</div><div class="w-slot-temp" id="wt-sat-12t">--</div><div class="w-slot-rain" id="wt-sat-12r"></div></div>
+          <div class="w-slot"><div class="w-slot-label">3pm</div><div class="w-slot-icon" id="wt-sat-15i">·</div><div class="w-slot-temp" id="wt-sat-15t">--</div><div class="w-slot-rain" id="wt-sat-15r"></div></div>
+          <div class="w-slot"><div class="w-slot-label">6pm</div><div class="w-slot-icon" id="wt-sat-18i">·</div><div class="w-slot-temp" id="wt-sat-18t">--</div><div class="w-slot-rain" id="wt-sat-18r"></div></div>
+        </div>
       </div>
       <div class="event">
         <div class="event-time">10:00 AM</div>
@@ -899,58 +910,43 @@ __/        \   \      v      \/        \___
       }
     }
 
-    // Weather forecast (Open-Meteo, no API key needed)
+    // Weather forecast — hourly snapshots (Open-Meteo, no API key needed)
     async function fetchWeather() {
       try {
-        const url = 'https://api.open-meteo.com/v1/forecast?latitude=39.2496&longitude=-119.9719&daily=weathercode,temperature_2m_max,temperature_2m_min,precipitation_probability_max&temperature_unit=fahrenheit&timezone=America%2FLos_Angeles&start_date=2026-06-04&end_date=2026-06-06';
-        const res = await fetch(url);
+        const url = 'https://api.open-meteo.com/v1/forecast?latitude=39.2496&longitude=-119.9719&hourly=temperature_2m,weathercode,precipitation_probability&temperature_unit=fahrenheit&timezone=America%2FLos_Angeles&start_date=2026-06-04&end_date=2026-06-06';
+        const res  = await fetch(url);
         const data = await res.json();
-        const ids = ['weather-thu', 'weather-fri', 'weather-sat'];
-        ids.forEach((id, i) => {
-          const el = document.getElementById(id);
-          if (!el || !data.daily) return;
-          const code = data.daily.weathercode[i];
-          const hi   = Math.round(data.daily.temperature_2m_max[i]);
-          const lo   = Math.round(data.daily.temperature_2m_min[i]);
-          const rain = data.daily.precipitation_probability_max[i];
-          el.querySelector('.w-icon').textContent      = codeEmoji(code);
-          el.querySelector('.w-condition').textContent = codeText(code);
-          el.querySelector('.w-high').textContent      = hi + '°F';
-          el.querySelector('.w-low').textContent       = lo + '°F';
-          el.querySelector('.w-precip').textContent    = rain > 5 ? rain + '% chance of rain' : '';
+        const temps = data.hourly.temperature_2m;
+        const codes = data.hourly.weathercode;
+        const rains = data.hourly.precipitation_probability;
+
+        const days  = ['thu', 'fri', 'sat'];
+        const hours = [9, 12, 15, 18];
+
+        days.forEach((day, di) => {
+          hours.forEach(h => {
+            const idx  = di * 24 + h;
+            const temp = Math.round(temps[idx]);
+            const rain = rains[idx];
+            document.getElementById(`wt-${day}-${h}i`).textContent = codeEmoji(codes[idx]);
+            document.getElementById(`wt-${day}-${h}t`).textContent = temp + '°';
+            document.getElementById(`wt-${day}-${h}r`).textContent = rain > 10 ? rain + '%' : '';
+          });
         });
-      } catch(e) {
-        ['weather-thu','weather-fri','weather-sat'].forEach(id => {
-          const el = document.getElementById(id);
-          if (el) el.querySelector('.w-condition').textContent = 'unavailable';
-        });
-      }
+      } catch(e) { /* silently fail — placeholders stay */ }
     }
 
     function codeEmoji(c) {
-      if (c === 0)           return '☀️';
-      if (c === 1)           return '🌤️';
-      if (c === 2)           return '⛅';
-      if (c === 3)           return '☁️';
-      if (c <= 48)           return '🌫️';
-      if (c <= 55)           return '🌦️';
-      if (c <= 65)           return '🌧️';
-      if (c <= 75)           return '🌨️';
-      if (c <= 82)           return '🌦️';
+      if (c === 0)  return '☀️';
+      if (c === 1)  return '🌤️';
+      if (c === 2)  return '⛅';
+      if (c === 3)  return '☁️';
+      if (c <= 48)  return '🌫️';
+      if (c <= 55)  return '🌦️';
+      if (c <= 65)  return '🌧️';
+      if (c <= 75)  return '🌨️';
+      if (c <= 82)  return '🌦️';
       return '⛈️';
-    }
-
-    function codeText(c) {
-      if (c === 0)  return 'clear sky';
-      if (c === 1)  return 'mostly clear';
-      if (c === 2)  return 'partly cloudy';
-      if (c === 3)  return 'overcast';
-      if (c <= 48)  return 'foggy';
-      if (c <= 55)  return 'drizzle';
-      if (c <= 65)  return 'rain';
-      if (c <= 75)  return 'snow';
-      if (c <= 82)  return 'showers';
-      return 'thunderstorm';
     }
 
     fetchWeather();
