@@ -341,49 +341,6 @@
     }
     .countdown-prompt { color: var(--sage); }
 
-    /* ── Floating airplane ── */
-    .float-plane {
-      position: fixed;
-      right: 1.2rem;
-      top: 40%;
-      font-size: 3rem;
-      cursor: default;
-      user-select: none;
-      animation: bob 4s ease-in-out infinite;
-      transition: transform 0.2s;
-      z-index: 100;
-      line-height: 1;
-      filter: drop-shadow(0 2px 6px rgba(90,138,170,0.4));
-    }
-    .float-plane:hover { animation: zoom 0.4s ease-in-out infinite alternate; }
-    .float-plane .contrail {
-      position: absolute;
-      right: 100%;
-      top: 50%;
-      transform: translateY(-50%);
-      display: flex;
-      gap: 5px;
-      padding-right: 6px;
-      opacity: 0;
-      transition: opacity 0.3s;
-    }
-    .float-plane:hover .contrail { opacity: 1; }
-    .contrail-dot {
-      width: 6px;
-      height: 6px;
-      border-radius: 50%;
-      background: var(--dusty-blue);
-      opacity: 0.6;
-    }
-
-    @keyframes bob {
-      0%, 100% { transform: translateY(0) rotate(-5deg); }
-      50%       { transform: translateY(-12px) rotate(-5deg); }
-    }
-    @keyframes zoom {
-      0%   { transform: translateY(0) rotate(-5deg) scale(1); }
-      100% { transform: translateY(-4px) rotate(-10deg) scale(1.2); }
-    }
 
     /* ── Just Married banner plane ── */
     .just-married-plane {
@@ -777,22 +734,12 @@ __/        \   \      v      \/        \___
 
   <!-- Just Married banner plane -->
   <div class="just-married-plane">
-    <span class="jm-plane-icon">✈</span>
-    <span class="jm-rope"></span>
     <span class="jm-banner">JUST MARRIED ♡</span>
+    <span class="jm-rope"></span>
+    <span class="jm-plane-icon">✈</span>
   </div>
 
-  <!-- Floating airplane -->
-  <div class="float-plane" title="✈">
-    <div class="contrail">
-      <div class="contrail-dot"></div>
-      <div class="contrail-dot" style="opacity:0.4;"></div>
-      <div class="contrail-dot" style="opacity:0.2;"></div>
-    </div>
-    ✈
-  </div>
-
-  <div class="footer">✈ &nbsp;·&nbsp; see you in tahoe &nbsp;·&nbsp; ✈</div>
+<div class="footer">✈ &nbsp;·&nbsp; see you in tahoe &nbsp;·&nbsp; ✈</div>
 
   <script>
     const PASSWORD = 'tahoe2026';
