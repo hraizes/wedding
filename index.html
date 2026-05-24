@@ -385,6 +385,48 @@
       100% { transform: translateY(-4px) rotate(-10deg) scale(1.2); }
     }
 
+    /* ── Just Married banner plane ── */
+    .just-married-plane {
+      position: fixed;
+      top: 12%;
+      left: -580px;
+      z-index: 200;
+      display: flex;
+      align-items: center;
+      pointer-events: none;
+      animation: fly-banner 32s linear infinite;
+      white-space: nowrap;
+    }
+
+    .jm-plane-icon { font-size: 2.2rem; }
+
+    .jm-rope {
+      width: 80px;
+      border-top: 2px dashed rgba(154,96,112,0.5);
+      margin: 0 3px;
+    }
+
+    .jm-banner {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      color: var(--mauve);
+      border: 1.5px solid var(--mauve);
+      background: var(--bg);
+      padding: 0.35rem 0.8rem;
+      box-shadow: 0 2px 10px rgba(154,96,112,0.2);
+    }
+
+    @keyframes fly-banner {
+      0%      { transform: translateX(0);                    opacity: 0; }
+      3%      { transform: translateX(10px);                 opacity: 1; }
+      32%     { transform: translateX(calc(100vw + 620px));  opacity: 1; }
+      34%     { transform: translateX(calc(100vw + 640px));  opacity: 0; }
+      34.01%  { transform: translateX(0);                    opacity: 0; }
+      100%    { transform: translateX(0);                    opacity: 0; }
+    }
+
     /* ── Konami planes ── */
     .konami-plane {
       position: fixed;
@@ -731,6 +773,13 @@ __/        \   \      v      \/        \___
       </div>
 
     </div>
+  </div>
+
+  <!-- Just Married banner plane -->
+  <div class="just-married-plane">
+    <span class="jm-plane-icon">✈</span>
+    <span class="jm-rope"></span>
+    <span class="jm-banner">JUST MARRIED ♡</span>
   </div>
 
   <!-- Floating airplane -->
