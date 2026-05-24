@@ -352,40 +352,13 @@
     }
 
     .weather-cloud {
-      background: rgba(255, 250, 244, 0.82);
-      border: 1px solid rgba(212, 196, 168, 0.7);
-      border-radius: 18px 22px 20px 18px / 20px 18px 22px 20px;
-      padding: 0.9rem 1.1rem 0.8rem;
-      min-width: 110px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1rem 1.2rem 0.9rem;
+      min-width: 120px;
       text-align: center;
-      box-shadow: 0 4px 14px rgba(46,32,24,0.08), 0 1px 3px rgba(46,32,24,0.05);
-      position: relative;
-    }
-
-    .weather-cloud::before {
-      content: '';
-      position: absolute;
-      width: 44px;
-      height: 44px;
-      background: rgba(255,250,244,0.82);
-      border: 1px solid rgba(212,196,168,0.6);
-      border-radius: 50%;
-      top: -18px;
-      left: 16px;
-      box-shadow: 0 -2px 6px rgba(46,32,24,0.05);
-    }
-
-    .weather-cloud::after {
-      content: '';
-      position: absolute;
-      width: 30px;
-      height: 30px;
-      background: rgba(255,250,244,0.82);
-      border: 1px solid rgba(212,196,168,0.6);
-      border-radius: 50%;
-      top: -12px;
-      right: 18px;
-      box-shadow: 0 -2px 4px rgba(46,32,24,0.04);
+      box-shadow: 0 2px 8px rgba(46,32,24,0.07);
     }
 
     .w-day {
@@ -528,30 +501,6 @@
       &nbsp;·&nbsp;
       <a href="https://parks.nv.gov/parks/lake-tahoe-nevada-state-park" target="_blank">Sand Harbor</a>
     </div>
-    <div class="weather-row">
-      <div class="weather-cloud" id="weather-thu">
-        <div class="w-day">THU · JUN 4</div>
-        <div class="w-icon">·</div>
-        <div class="w-condition">loading</div>
-        <div class="w-temps"><span class="w-high">--</span> / <span class="w-low">--</span></div>
-        <div class="w-precip"></div>
-      </div>
-      <div class="weather-cloud" id="weather-fri">
-        <div class="w-day">FRI · JUN 5</div>
-        <div class="w-icon">·</div>
-        <div class="w-condition">loading</div>
-        <div class="w-temps"><span class="w-high">--</span> / <span class="w-low">--</span></div>
-        <div class="w-precip"></div>
-      </div>
-      <div class="weather-cloud" id="weather-sat">
-        <div class="w-day">SAT · JUN 6</div>
-        <div class="w-icon">·</div>
-        <div class="w-condition">loading</div>
-        <div class="w-temps"><span class="w-high">--</span> / <span class="w-low">--</span></div>
-        <div class="w-precip"></div>
-      </div>
-    </div>
-
     <div class="countdown">
       <span class="countdown-prompt">&gt; </span>countdown to i do:
       <span class="countdown-value" id="countdown">calculating...</span>
@@ -564,6 +513,34 @@
 __/        \   \      v      \/        \___
 ~ ~ ~ ~ ~ ~ L A K E  T A H O E ~ ~ ~ ~ ~ ~</pre>
   </header>
+
+  <hr class="divider" />
+
+  <!-- Weather forecast -->
+  <div class="section-label">TAHOE FORECAST</div>
+  <div class="weather-row">
+    <div class="weather-cloud" id="weather-thu">
+      <div class="w-day">THU · JUN 4</div>
+      <div class="w-icon">⟳</div>
+      <div class="w-condition">loading</div>
+      <div class="w-temps"><span class="w-high">--</span> / <span class="w-low">--</span></div>
+      <div class="w-precip"></div>
+    </div>
+    <div class="weather-cloud" id="weather-fri">
+      <div class="w-day">FRI · JUN 5</div>
+      <div class="w-icon">⟳</div>
+      <div class="w-condition">loading</div>
+      <div class="w-temps"><span class="w-high">--</span> / <span class="w-low">--</span></div>
+      <div class="w-precip"></div>
+    </div>
+    <div class="weather-cloud" id="weather-sat">
+      <div class="w-day">SAT · JUN 6</div>
+      <div class="w-icon">⟳</div>
+      <div class="w-condition">loading</div>
+      <div class="w-temps"><span class="w-high">--</span> / <span class="w-low">--</span></div>
+      <div class="w-precip"></div>
+    </div>
+  </div>
 
   <hr class="divider" />
 
