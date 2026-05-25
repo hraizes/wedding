@@ -560,6 +560,34 @@
       letter-spacing: 0.08em;
     }
 
+    /* ── Parking collapsible ── */
+    .parking-details {
+      border: 1px solid var(--border);
+      border-radius: 3px;
+      margin: 0.5rem 0 0.5rem;
+    }
+    .parking-details summary {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.72rem;
+      font-weight: 600;
+      color: var(--blue);
+      letter-spacing: 0.1em;
+      padding: 0.7rem 1rem;
+      cursor: pointer;
+      list-style: none;
+      user-select: none;
+    }
+    .parking-details summary::-webkit-details-marker { display: none; }
+    .parking-details summary::before { content: '> '; color: var(--sage); }
+    .parking-details[open] summary::before { content: 'v '; color: var(--sage); }
+    .parking-content {
+      padding: 0.6rem 1rem 1rem;
+      font-size: 0.74rem;
+      color: var(--muted);
+      line-height: 1.8;
+      border-top: 1px solid var(--border);
+    }
+
     /* ── Footer ── */
     .footer {
       margin-top: 4rem;
@@ -882,6 +910,18 @@ __/        \   \      v      \/        \___
           </div>
         </div>
       </div>
+      <details class="parking-details">
+        <summary data-en="🅿 Parking" data-fr="🅿 Stationnement">🅿 Parking</summary>
+        <div class="parking-content">
+          <div data-en="<strong style='color:var(--text);'>Ramada spaces</strong> · 25 dedicated parking spots included<br><strong style='color:var(--text);'>Extra passes</strong> · ~12 additional passes purchased<br><br>🚗 &nbsp;<em>Carpool plan coming soon — check back!</em>"
+               data-fr="<strong style='color:var(--text);'>Places Ramada</strong> · 25 places de parking dédiées incluses<br><strong style='color:var(--text);'>Passes supplémentaires</strong> · ~12 passes supplémentaires achetés<br><br>🚗 &nbsp;<em>Plan de covoiturage à venir — revenez bientôt !</em>">
+            <strong style="color:var(--text);">Ramada spaces</strong> · 25 dedicated parking spots included<br />
+            <strong style="color:var(--text);">Extra passes</strong> · ~12 additional passes purchased<br /><br />
+            🚗 &nbsp;<em>Carpool plan coming soon — check back!</em>
+          </div>
+        </div>
+      </details>
+
       <div class="event">
         <div class="event-time">3:00 PM</div>
         <div><div class="event-name" data-en="Pack up + Head out" data-fr="Rangement + Départ">Pack up + Head out</div></div>
