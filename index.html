@@ -673,7 +673,7 @@ __/        \   \      v      \/        \___
     <!-- Friday -->
     <div class="day-panel active" id="panel-fri">
       <div class="weather-cloud" id="weather-fri">
-        <div class="w-day" data-en="FRI · JUN 5 · INCLINE VILLAGE" data-fr="VEN · 5 JUN · INCLINE VILLAGE">FRI · JUN 5 · INCLINE VILLAGE</div>
+        <div class="w-day" data-en="FRI · JUN 5 · TANNENBAUM" data-fr="VEN · 5 JUN · TANNENBAUM">FRI · JUN 5 · TANNENBAUM</div>
         <div class="w-times">
           <div class="w-slot">
             <div class="w-slot-label" data-en="9am" data-fr="9h">9am</div>
@@ -1045,16 +1045,17 @@ __/        \   \      v      \/        \___
 
     async function fetchWeather() {
       const params = 'hourly=temperature_2m,weathercode,precipitation_probability&temperature_unit=fahrenheit&timezone=America%2FLos_Angeles';
-      const urlIV = `https://api.open-meteo.com/v1/forecast?latitude=39.2496&longitude=-119.9719&${params}&start_date=2026-06-04&end_date=2026-06-06`;
+      const urlIV   = `https://api.open-meteo.com/v1/forecast?latitude=39.2496&longitude=-119.9719&${params}&start_date=2026-06-04&end_date=2026-06-06`;
+      const urlTann = `https://api.open-meteo.com/v1/forecast?latitude=39.3420&longitude=-119.8642&${params}&start_date=2026-06-05&end_date=2026-06-05`;
 
       try {
-        const ivRes  = await fetch(urlIV);
-        const ivData = await ivRes.json();
+        const [ivRes, tannRes]   = await Promise.all([fetch(urlIV), fetch(urlTann)]);
+        const [ivData, tannData] = await Promise.all([ivRes.json(), tannRes.json()]);
         const hours = [9, 12, 15, 18];
 
-        hours.forEach(h => fillSlot('thu', h, ivData, 0 * 24 + h));
-        hours.forEach(h => fillSlot('fri', h, ivData, 1 * 24 + h));
-        hours.forEach(h => fillSlot('sat', h, ivData, 2 * 24 + h));
+        hours.forEach(h => fillSlot('thu', h, ivData,   0 * 24 + h));
+        hours.forEach(h => fillSlot('fri', h, tannData, 0 * 24 + h));
+        hours.forEach(h => fillSlot('sat', h, ivData,   2 * 24 + h));
       } catch(e) { }
     }
 
