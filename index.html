@@ -1269,9 +1269,14 @@ __/        \   \      v      \/        \___
     }
 
     async function fetchWeather() {
-      const params = 'hourly=temperature_2m,weather_code,precipitation_probability&temperature_unit=fahrenheit&timezone=America%2FLos_Angeles';
-      const urlIV   = `https://api.open-meteo.com/v1/forecast?latitude=39.2496&longitude=-119.9719&${params}&start_date=2026-06-04&end_date=2026-06-06`;
-      const urlTann = `https://api.open-meteo.com/v1/forecast?latitude=39.3420&longitude=-119.8642&${params}&start_date=2026-06-05&end_date=2026-06-05`;
+      const base  = 'hourly=temperature_2m,weather_code,precipitation_probability&temperature_unit=fahrenheit&timezone=America%2FLos_Angeles&forecast_days=16';
+      const urlIV   = `https://api.open-meteo.com/v1/forecast?latitude=39.2496&longitude=-119.9719&${base}`;
+      const urlTann = `https://api.open-meteo.com/v1/forecast?latitude=39.3420&longitude=-119.8642&${base}`;
+
+      function dayOffset(dateStr) {
+        const today = new Date(); today.setHours(0,0,0,0);
+        return Math.round((new Date(dateStr) - today) / 86400000);
+      }
 
       async function tryFetch(url, attempts = 4) {
         for (let i = 0; i < attempts; i++) {
@@ -1287,11 +1292,15 @@ __/        \   \      v      \/        \___
       }
 
       try {
+        const thuDay = dayOffset('2026-06-04');
+        const friDay = dayOffset('2026-06-05');
+        const satDay = dayOffset('2026-06-06');
+        if (satDay > 15) return;
         const [ivData, tannData] = await Promise.all([tryFetch(urlIV), tryFetch(urlTann)]);
         const hours = [9, 12, 15, 18];
-        hours.forEach(h => fillSlot('thu', h, ivData,   0 * 24 + h));
-        hours.forEach(h => fillSlot('fri', h, tannData, 0 * 24 + h));
-        hours.forEach(h => fillSlot('sat', h, ivData,   2 * 24 + h));
+        if (thuDay >= 0) hours.forEach(h => fillSlot('thu', h, ivData,   thuDay * 24 + h));
+        if (friDay >= 0) hours.forEach(h => fillSlot('fri', h, tannData, friDay * 24 + h));
+        if (satDay >= 0) hours.forEach(h => fillSlot('sat', h, ivData,   satDay * 24 + h));
       } catch(e) { console.error('Weather fetch failed:', e); }
     }
 
