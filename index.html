@@ -1275,13 +1275,15 @@ __/        \   \      v      \/        \___
 
       try {
         const [ivRes, tannRes]   = await Promise.all([fetch(urlIV), fetch(urlTann)]);
+        if (!ivRes.ok)   throw new Error(`IV ${ivRes.status}: ${await ivRes.text()}`);
+        if (!tannRes.ok) throw new Error(`Tann ${tannRes.status}: ${await tannRes.text()}`);
         const [ivData, tannData] = await Promise.all([ivRes.json(), tannRes.json()]);
         const hours = [9, 12, 15, 18];
 
         hours.forEach(h => fillSlot('thu', h, ivData,   0 * 24 + h));
         hours.forEach(h => fillSlot('fri', h, tannData, 0 * 24 + h));
         hours.forEach(h => fillSlot('sat', h, ivData,   2 * 24 + h));
-      } catch(e) { }
+      } catch(e) { console.error('Weather fetch failed:', e); }
     }
 
     function fillSlot(day, h, data, idx) {
