@@ -1301,7 +1301,17 @@ __/        \   \      v      \/        \___
         if (thuDay >= 0) hours.forEach(h => fillSlot('thu', h, ivData,   thuDay * 24 + h));
         if (friDay >= 0) hours.forEach(h => fillSlot('fri', h, tannData, friDay * 24 + h));
         if (satDay >= 0) hours.forEach(h => fillSlot('sat', h, ivData,   satDay * 24 + h));
-      } catch(e) { console.error('Weather fetch failed:', e); }
+      } catch(e) {
+        console.error('Weather fetch failed:', e);
+        ['weather-thu','weather-fri','weather-sat'].forEach(id => {
+          const el = document.getElementById(id);
+          if (!el) return;
+          const msg = document.createElement('div');
+          msg.style.cssText = 'color:#b94040;font-size:0.6rem;letter-spacing:0.05em;margin-top:0.6rem;text-align:center;';
+          msg.textContent = '⚠ weather service temporarily unavailable (502) — check back soon';
+          el.appendChild(msg);
+        });
+      }
     }
 
     function fillSlot(day, h, data, idx) {
