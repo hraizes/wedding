@@ -1263,7 +1263,7 @@ __/        \   \      v      \/        \___
     }
 
     async function fetchWeather() {
-      const params = 'hourly=temperature_2m,weathercode,precipitation_probability&temperature_unit=fahrenheit&timezone=America%2FLos_Angeles';
+      const params = 'hourly=temperature_2m,weather_code,precipitation_probability&temperature_unit=fahrenheit&timezone=America%2FLos_Angeles';
       const urlIV   = `https://api.open-meteo.com/v1/forecast?latitude=39.2496&longitude=-119.9719&${params}&start_date=2026-06-04&end_date=2026-06-06`;
       const urlTann = `https://api.open-meteo.com/v1/forecast?latitude=39.3420&longitude=-119.8642&${params}&start_date=2026-06-05&end_date=2026-06-05`;
 
@@ -1281,7 +1281,7 @@ __/        \   \      v      \/        \___
     function fillSlot(day, h, data, idx) {
       const temp = Math.round(data.hourly.temperature_2m[idx]);
       const rain = data.hourly.precipitation_probability[idx];
-      const code = data.hourly.weathercode[idx];
+      const code = (data.hourly.weather_code || data.hourly.weathercode)[idx];
       document.getElementById(`wt-${day}-${h}i`).textContent = codeEmoji(code);
       const tempEl = document.getElementById(`wt-${day}-${h}t`);
       tempEl.dataset.f = temp;
