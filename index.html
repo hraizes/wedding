@@ -1273,13 +1273,22 @@ __/        \   \      v      \/        \___
       const urlIV   = `https://api.open-meteo.com/v1/forecast?latitude=39.2496&longitude=-119.9719&${params}&start_date=2026-06-04&end_date=2026-06-06`;
       const urlTann = `https://api.open-meteo.com/v1/forecast?latitude=39.3420&longitude=-119.8642&${params}&start_date=2026-06-05&end_date=2026-06-05`;
 
-      try {
-        const [ivRes, tannRes]   = await Promise.all([fetch(urlIV), fetch(urlTann)]);
-        if (!ivRes.ok)   throw new Error(`IV ${ivRes.status}: ${await ivRes.text()}`);
-        if (!tannRes.ok) throw new Error(`Tann ${tannRes.status}: ${await tannRes.text()}`);
-        const [ivData, tannData] = await Promise.all([ivRes.json(), tannRes.json()]);
-        const hours = [9, 12, 15, 18];
+      async function tryFetch(url, attempts = 4) {
+        for (let i = 0; i < attempts; i++) {
+          try {
+            const res = await fetch(url);
+            if (res.ok) return res.json();
+            throw new Error(`HTTP ${res.status}`);
+          } catch(e) {
+            if (i < attempts - 1) await new Promise(r => setTimeout(r, 1500 * (i + 1)));
+            else throw e;
+          }
+        }
+      }
 
+      try {
+        const [ivData, tannData] = await Promise.all([tryFetch(urlIV), tryFetch(urlTann)]);
+        const hours = [9, 12, 15, 18];
         hours.forEach(h => fillSlot('thu', h, ivData,   0 * 24 + h));
         hours.forEach(h => fillSlot('fri', h, tannData, 0 * 24 + h));
         hours.forEach(h => fillSlot('sat', h, ivData,   2 * 24 + h));
