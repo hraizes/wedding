@@ -801,6 +801,14 @@ __/        \   \      v      \/        \___
         </div>
       </div>
 
+      <!-- Table Finder -->
+      <div style="border:1px solid var(--border);border-radius:4px;padding:1rem 1.1rem;margin-bottom:1.5rem;">
+        <div style="font-size:0.6rem;font-weight:700;letter-spacing:0.1em;color:var(--muted);margin-bottom:0.6rem;">🪑 FIND YOUR TABLE</div>
+        <input type="text" id="table-search" autocomplete="off" placeholder="type your name..."
+          style="width:100%;box-sizing:border-box;font-family:'JetBrains Mono',monospace;font-size:0.74rem;border:1px solid var(--border);border-radius:3px;padding:0.45rem 0.7rem;background:transparent;color:var(--text);outline:none;">
+        <div id="table-result" style="margin-top:0.6rem;font-size:0.74rem;line-height:1.9;min-height:1rem;"></div>
+      </div>
+
       <!-- Dinner Menu -->
       <div class="menu-box">
         <div class="section-label" style="margin-bottom:1rem;" data-en="DINNER MENU" data-fr="MENU DU DÎNER">DINNER MENU</div>
@@ -1544,6 +1552,104 @@ __/        \   \      v      \/        \___
           setTimeout(() => plane.remove(), 2500);
         }, i * 200);
       }
+    }
+
+    // Table finder
+    const SEATING = [
+      {n:"Haley Raizes",t:1,tn:"Head Table"},{n:"Thomas Greenhill",t:1,tn:"Head Table"},
+      {n:"Ashley Raizes",t:1,tn:"Head Table"},{n:"Jake O'Balle",t:1,tn:"Head Table"},
+      {n:"Hugo Greenhill",t:1,tn:"Head Table"},{n:"Daniela Musi",t:1,tn:"Head Table"},
+      {n:"Simon Greenhill",t:1,tn:"Head Table"},{n:"Elinor Reed",t:1,tn:"Head Table"},
+      {n:"Caitlyn Liu",t:1,tn:"Head Table"},{n:"Milad Mehr",t:1,tn:"Head Table"},
+      {n:"Giles Beebe",t:1,tn:"Head Table"},{n:"Alex Neigher",t:1,tn:"Head Table"},
+      {n:"Elena Neigher",t:1,tn:"Head Table"},
+
+      {n:"Ashlin Healy",t:2,tn:"Cousins"},{n:"Jack Woolf",t:2,tn:"Cousins"},
+      {n:"Cailan Healy",t:2,tn:"Cousins"},{n:"Erin Healy",t:2,tn:"Cousins"},
+      {n:"Zoe Bond",t:2,tn:"Cousins"},{n:"Naomie Lagadec",t:2,tn:"Cousins"},
+      {n:"Kamili Lagadec",t:2,tn:"Cousins"},{n:"Dorian Cueff",t:2,tn:"Cousins"},
+      {n:"Justin Raizes",t:2,tn:"Cousins"},{n:"Collin Raizes",t:2,tn:"Cousins"},
+      {n:"Bryce Raizes",t:2,tn:"Cousins"},{n:"Jack Fusca",t:2,tn:"Cousins"},
+
+      {n:"Anne-Marie Brest",t:3,tn:"Brest + Greenhill"},{n:"David Greenhill",t:3,tn:"Brest + Greenhill"},
+      {n:"Christine Bond",t:3,tn:"Brest + Greenhill"},{n:"Andy Bond",t:3,tn:"Brest + Greenhill"},
+      {n:"Françoise Lagadec",t:3,tn:"Brest + Greenhill"},{n:"Gilles Lagadec",t:3,tn:"Brest + Greenhill"},
+      {n:"Valerie Greenhill",t:3,tn:"Brest + Greenhill"},{n:"Peter Deane",t:3,tn:"Brest + Greenhill"},
+      {n:"Katrina Deane",t:3,tn:"Brest + Greenhill"},
+
+      {n:"Maureen Healy",t:4,tn:"Healys"},{n:"Jeff Healy",t:4,tn:"Healys"},
+      {n:"Julie Raizes",t:4,tn:"Healys"},{n:"Cindy Van Avermaete",t:4,tn:"Healys"},
+      {n:"David Van Avermaete",t:4,tn:"Healys"},{n:"Priscilla O'Brien",t:4,tn:"Healys"},
+      {n:"Vivian Cesana",t:4,tn:"Healys"},{n:"Blair Beebe",t:4,tn:"Healys"},
+      {n:"Barbara Beebe",t:4,tn:"Healys"},
+
+      {n:"Steve Raizes",t:5,tn:"Raizes"},{n:"Deb Landa",t:5,tn:"Raizes"},
+      {n:"Elliot Raizes",t:5,tn:"Raizes"},{n:"Beth Raizes",t:5,tn:"Raizes"},
+      {n:"Lisa Schulman",t:5,tn:"Raizes"},{n:"Myles Schulman",t:5,tn:"Raizes"},
+      {n:"Lorri Bernstein",t:5,tn:"Raizes"},{n:"Ted Bernstein",t:5,tn:"Raizes"},
+      {n:"Gary Raizes",t:5,tn:"Raizes"},{n:"Jenny Koufos",t:5,tn:"Raizes"},
+
+      {n:"Richard Raizes",t:6,tn:"Raizes"},{n:"Megan Raizes",t:6,tn:"Raizes"},
+      {n:"Shira",t:6,tn:"Raizes"},{n:"Mila",t:6,tn:"Raizes"},{n:"Liora",t:6,tn:"Raizes"},
+      {n:"Nancy Fusca",t:6,tn:"Raizes"},{n:"John Fusca",t:6,tn:"Raizes"},
+      {n:"Bryan Raizes",t:6,tn:"Raizes"},{n:"Monica Raizes",t:6,tn:"Raizes"},
+      {n:"Sherri Regester",t:6,tn:"Raizes"},{n:"Steve Regester",t:6,tn:"Raizes"},
+      {n:"Marilyn Raizes",t:6,tn:"Raizes"},{n:"Sheldon Raizes",t:6,tn:"Raizes"},
+
+      {n:"Charles Taylor",t:7,tn:"Mentors"},{n:"Lisa Taylor",t:7,tn:"Mentors"},
+      {n:"Matthew Epperson",t:7,tn:"Mentors"},{n:"Jeremy Trilling",t:7,tn:"Mentors"},
+      {n:"Jeremy Murray",t:7,tn:"Mentors"},{n:"Arianne Sorreta",t:7,tn:"Mentors"},
+      {n:"Benjamin Lucchesi",t:7,tn:"Mentors"},{n:"Rong Lucchesi",t:7,tn:"Mentors"},
+      {n:"Suresh Kumar",t:7,tn:"Mentors"},{n:"Jon Scott",t:7,tn:"Mentors"},
+      {n:"Lauren Scott",t:7,tn:"Mentors"},
+
+      {n:"Jasmine Bradbury",t:8,tn:"Friends"},{n:"John Bradbury",t:8,tn:"Friends"},
+      {n:"Caleb Farrand",t:8,tn:"Friends"},{n:"Maryam Sabirova",t:8,tn:"Friends"},
+      {n:"Jacky Moore",t:8,tn:"Friends"},{n:"Thomas Simko",t:8,tn:"Friends"},
+      {n:"Kevin Krein",t:8,tn:"Friends"},{n:"Emily Meyer",t:8,tn:"Friends"},
+      {n:"Anjuli Smith",t:8,tn:"Friends"},{n:"Claire McHenry",t:8,tn:"Friends"},
+      {n:"Marley Gabel",t:8,tn:"Friends"},
+
+      {n:"Sneha Gaur",t:9,tn:"Friends"},{n:"Jack Roberts",t:9,tn:"Friends"},
+      {n:"Kaili Hafdal",t:9,tn:"Friends"},{n:"Ryan Ginsberg",t:9,tn:"Friends"},
+      {n:"Veronica Van Avermaete",t:9,tn:"Friends"},{n:"Amanda O'Brien",t:9,tn:"Friends"},
+      {n:"Jack Gerlach",t:9,tn:"Friends"},{n:"Sabrina Cesana",t:9,tn:"Friends"},
+      {n:"Dillon Ayers",t:9,tn:"Friends"},{n:"Christina Adams",t:9,tn:"Friends"},
+      {n:"Dominic Hathaway",t:9,tn:"Friends"},
+
+      {n:"Peter Larson",t:10,tn:"Friends"},{n:"Hussain Taymuree",t:10,tn:"Friends"},
+      {n:"Correia Borba",t:10,tn:"Friends"},{n:"Giorgio Tresoldi",t:10,tn:"Friends"},
+      {n:"Alicia Joho",t:10,tn:"Friends"},{n:"Brent Davidson",t:10,tn:"Friends"},
+      {n:"Jo Davidson",t:10,tn:"Friends"},{n:"Evan Simmons",t:10,tn:"Friends"},
+      {n:"Allyson Stronach",t:10,tn:"Friends"},{n:"Claudia Miller",t:10,tn:"Friends"},
+      {n:"Zach Yamauchi",t:10,tn:"Friends"},
+
+      {n:"Jamie Chin",t:11,tn:"Friends"},{n:"Ben Martín-Katz",t:11,tn:"Friends"},
+      {n:"Annie Hamburgen",t:11,tn:"Friends"},{n:"Jesse Borg",t:11,tn:"Friends"},
+      {n:"Monique Hurdle",t:11,tn:"Friends"},{n:"Francesco DiMare",t:11,tn:"Friends"},
+      {n:"Ella de Bruijn",t:11,tn:"Friends"},{n:"Charlie Horn",t:11,tn:"Friends"},
+      {n:"Yuval Rachman",t:11,tn:"Friends"},{n:"Genevieve Johnson",t:11,tn:"Friends"},
+    ];
+
+    function normStr(s) {
+      return s.normalize('NFD').replace(/[̀-ͯ]/g,'').toLowerCase();
+    }
+
+    const tableSearch = document.getElementById('table-search');
+    if (tableSearch) {
+      tableSearch.addEventListener('input', function() {
+        const q = normStr(this.value.trim());
+        const out = document.getElementById('table-result');
+        if (q.length < 1) { out.innerHTML = ''; return; }
+        const hits = SEATING.filter(g => normStr(g.n).includes(q));
+        if (!hits.length) {
+          out.innerHTML = '<span style="color:var(--muted);font-style:italic;">no match found — reach out to Haley if you\'re not sure!</span>';
+        } else {
+          out.innerHTML = hits.map(g =>
+            `<div><span style="color:var(--text);font-weight:600;">${g.n}</span>&nbsp;&nbsp;→&nbsp;&nbsp;<span style="color:var(--mauve);font-weight:700;">Table ${g.t}</span> <span style="color:var(--muted);">· ${g.tn}</span></div>`
+          ).join('');
+        }
+      });
     }
   </script>
 
