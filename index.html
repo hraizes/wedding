@@ -755,7 +755,15 @@ __/        \   \      v      \/        \___
       </div>
       <div class="event">
         <div class="event-time">6:30 PM</div>
-        <div><div class="event-name" data-en="Seating &amp; Grand Entrance" data-fr="Installation &amp; Grande Entrée">Seating &amp; Grand Entrance</div></div>
+        <div>
+          <div class="event-name" data-en="Seating &amp; Grand Entrance" data-fr="Installation &amp; Grande Entrée">Seating &amp; Grand Entrance</div>
+          <div style="border:1px solid var(--border);border-radius:4px;padding:0.8rem 1rem;margin-top:0.7rem;">
+            <div style="font-size:0.6rem;font-weight:700;letter-spacing:0.1em;color:var(--muted);margin-bottom:0.5rem;">🪑 FIND YOUR TABLE</div>
+            <input type="text" id="table-search" autocomplete="off" placeholder="type your name..."
+              style="width:100%;box-sizing:border-box;font-family:'JetBrains Mono',monospace;font-size:0.74rem;border:1px solid var(--border);border-radius:3px;padding:0.45rem 0.7rem;background:transparent;color:var(--text);outline:none;">
+            <div id="table-result" style="margin-top:0.6rem;font-size:0.74rem;line-height:1.9;min-height:1rem;"></div>
+          </div>
+        </div>
       </div>
       <div class="event">
         <div class="event-time">6:45 PM</div>
@@ -799,14 +807,6 @@ __/        \   \      v      \/        \___
           <span class="swatch"><span class="swatch-dot" style="background:#6b8fa8;"></span><span data-en="French Blue" data-fr="Bleu Français">French Blue</span></span>
           <span class="swatch"><span class="swatch-dot" style="background:#8fafc0;"></span><span data-en="Dusty Blue" data-fr="Bleu Poussiéreux">Dusty Blue</span></span>
         </div>
-      </div>
-
-      <!-- Table Finder -->
-      <div style="border:1px solid var(--border);border-radius:4px;padding:1rem 1.1rem;margin-bottom:1.5rem;">
-        <div style="font-size:0.6rem;font-weight:700;letter-spacing:0.1em;color:var(--muted);margin-bottom:0.6rem;">🪑 FIND YOUR TABLE</div>
-        <input type="text" id="table-search" autocomplete="off" placeholder="type your name..."
-          style="width:100%;box-sizing:border-box;font-family:'JetBrains Mono',monospace;font-size:0.74rem;border:1px solid var(--border);border-radius:3px;padding:0.45rem 0.7rem;background:transparent;color:var(--text);outline:none;">
-        <div id="table-result" style="margin-top:0.6rem;font-size:0.74rem;line-height:1.9;min-height:1rem;"></div>
       </div>
 
       <!-- Dinner Menu -->
@@ -1646,7 +1646,7 @@ __/        \   \      v      \/        \___
           out.innerHTML = '<span style="color:var(--muted);font-style:italic;">no match found — reach out to Haley if you\'re not sure!</span>';
         } else {
           out.innerHTML = hits.map(g =>
-            `<div><span style="color:var(--text);font-weight:600;">${g.n}</span>&nbsp;&nbsp;→&nbsp;&nbsp;<span style="color:var(--mauve);font-weight:700;">Table ${g.t}</span> <span style="color:var(--muted);">· ${g.tn}</span></div>`
+            `<div><span style="color:var(--text);font-weight:600;">${g.n}</span>&nbsp;&nbsp;→&nbsp;&nbsp;<span style="color:var(--mauve);font-weight:700;">Table ${g.t}</span></div>`
           ).join('');
         }
       });
